@@ -1,92 +1,121 @@
-<!DOCTYPE HTML>
-<html>
-    <head>
-        <title>Personal Website of Wes Tu</title>
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-        <link rel="stylesheet" href="assets/css/main.css" />
-    </head>
-    <body class="is-preload">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Get In Touch — Wes Tu | 杜勳威</title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<meta name="description" content="Contact Hsun-Wei (Wes) Tu for machine design, BLDC motor drive development, robotics, or patent search and application." />
+	<link rel="preconnect" href="https://fonts.googleapis.com" />
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+	<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet" />
+	<link rel="stylesheet" href="assets/tech/tech.css" />
+</head>
+<body>
 
-        <!-- Wrapper -->
-        <div id="wrapper">
+	<canvas id="grid-canvas"></canvas>
+	<div class="vignette"></div>
 
-            <!-- Main -->
-            <div id="main">
-                <div class="inner">
+	<header class="site-header">
+		<nav class="nav-inner">
+			<a class="brand" href="index.html">
+				<span class="brand-mark" aria-hidden="true">
+					<svg viewBox="0 0 24 24" fill="none" stroke="#f2a35c" stroke-width="1.6" stroke-linecap="round">
+						<circle cx="6" cy="18" r="2.2" />
+						<path d="M7.5 16.3 L11 9.5" />
+						<circle cx="11.6" cy="8.4" r="1.8" />
+						<path d="M13 7.2 L17.5 4.8" />
+						<path d="M17.5 4.8 L20 6.8 M17.5 4.8 L19.5 2.6" stroke="#4cc8a3" />
+					</svg>
+				</span>
+				<span class="brand-text">
+					<span class="brand-name">WES.TU</span>
+					<span class="brand-sub">MECHATRONICS · 杜勳威</span>
+				</span>
+			</a>
+			<button class="nav-toggle" aria-label="Open menu"><span></span><span></span><span></span></button>
+			<ul class="nav-links">
+				<li><a href="index.html">Home</a></li>
+				<li><a href="academic_background.html">Academic</a></li>
+				<li class="nav-drop">
+					<button class="nav-drop-label">Experience <span class="caret">▼</span></button>
+					<ul class="nav-dropdown">
+						<li><a href="work_experience.html">Overview</a></li>
+						<li><a href="Techncare.html">Techncare Biomedical</a></li>
+						<li><a href="Saultech.html">Saultech Technology</a></li>
+						<li><a href="Grenergy.html">Grenergy Technology</a></li>
+					</ul>
+				</li>
+				<li><a href="hobbies.html">Hobbies</a></li>
+				<li class="active"><a href="get_in_touch.html">Contact</a></li>
+			</ul>
+		</nav>
+	</header>
 
-                    <!-- Header -->
-                    <header id="header">
-                        <a href="index.html" class="logo">Portfolio of <strong>Wes Tu</strong></a>
-                        <ul class="icons">
-                            <li><a href="www.linkedin.com/in/勳威-杜-a4b073119" class="icon brands fa-linkedin"><span class="label">LinkedIn</span></a></li>
-                            <li><a href="https://www.facebook.com/profile.php?id=100002734296589&locale=zh_TW" class="icon brands fa-facebook-f"><span class="label">Facebook</span></a></li>
-                            <li><a href="https://www.instagram.com/hsun_wei_tu?igsh=Y3gwd2I4dDMzamRz&utm_source=qr" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
-                            <li><a href="https://line.me/ti/p/2c_H8ZEUiS" class="icon brands fa-line"><span class="label">Line</span></a></li>
-                        </ul>
-                    </header>
+	<main>
 
-                    <!-- Content -->
-                    <section>
-                        <header class="main">
-                            <h1>Get In Touch</h1>
-                        </header>
-						<h2 id="content">Contact Form</h2>
-						<p>If you have any inquiries related to my expertise, such as equipment mechanical design, brushless DC motor drive circuits and program development, or patent search and application, please feel free to leave your contact information below. Thank you!</p>
-                        <!-- Form -->
-                        <div style="text-align:center;">
-                            <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSfJF9LSVbyZblo29Vx1jTVhFrdY0fZheBHlCjnoj8rz1a_VOQ/viewform?embedded=true" width="640" height="1180" frameborder="0" marginheight="0" marginwidth="0">載入中…</iframe>
-                        </div>
-                        
-                    </section>
+		<section class="page-hero">
+			<div class="reveal">
+				<div class="page-id">SYS.COMM / Get In Touch <span class="zh">聯絡</span></div>
+				<h1>Open a channel</h1>
+				<p class="lead">Machine design, BLDC motor drives and firmware, robotics, or patent search and application — leave a message below. Every packet gets an ACK.</p>
+			</div>
+		</section>
 
-                </div>
-            </div>
+		<section class="section" style="padding-top: 0.5rem;">
+			<div class="contact-wrap">
 
-            <!-- Sidebar -->
-            <div id="sidebar">
-                <div class="inner">
+				<div class="reveal">
+					<h2>Direct channels</h2>
+					<p style="color: var(--text-dim); margin-top: 0.6rem;">Prefer a faster protocol? I'm reachable on any of these:</p>
+					<ul class="contact-list">
+						<li>
+							<span class="ch-id">CH_01</span>
+							<a href="https://www.linkedin.com/in/勳威-杜-a4b073119" target="_blank" rel="noopener">LinkedIn — professional profile</a>
+						</li>
+						<li>
+							<span class="ch-id">CH_02</span>
+							<a href="https://www.facebook.com/profile.php?id=100002734296589&amp;locale=zh_TW" target="_blank" rel="noopener">Facebook — say hello</a>
+						</li>
+						<li>
+							<span class="ch-id">CH_03</span>
+							<a href="https://www.instagram.com/hsun_wei_tu/" target="_blank" rel="noopener">Instagram — life in photos</a>
+						</li>
+						<li>
+							<span class="ch-id">CH_04</span>
+							<a href="https://line.me/ti/p/2c_H8ZEUiS" target="_blank" rel="noopener">LINE — direct message</a>
+						</li>
+					</ul>
+				</div>
 
-                    <!-- Search -->
-                    <section id="search" class="alt">
-                        <form method="post" action="#">
-                            <input type="text" name="query" id="query" placeholder="Search" />
-                        </form>
-                    </section>
+				<div class="reveal" style="--reveal-delay: 0.12s;">
+					<div class="form-frame hud">
+						<iframe src="https://docs.google.com/forms/d/e/1FAIpQLSfJF9LSVbyZblo29Vx1jTVhFrdY0fZheBHlCjnoj8rz1a_VOQ/viewform?embedded=true" title="Contact form" loading="lazy">載入中…</iframe>
+					</div>
+				</div>
 
-                    <!-- Menu -->
-                    <nav id="menu">
-                        <header class="major">
-                            <h2>Menu</h2>
-                        </header>
-                        <ul>
-                            <li><a href="index.html">Homepage</a></li>
-                            <li><a href="academic_background.html">Academic Background</a></li>										
-                            <li>
-                                <span class="opener">Work Experience</span>
-                                <ul>
-                                    <li><a href="work_experience.html">Overview</a></li>
-                                    <li><a href="Techncare.html">Techncare Biomedical Technology</a></li>
-                                    <li><a href="Saultech">Saultech Technology</a></li>
-                                    <li><a href="Grenergy">Grenergy Technology</a></li>
-                                </ul>
-                            </li>
-                            <li><a href="hobbies.html">Hobbies</a></li>										
-                            <li><a href="get_in_touch.html">Get In Touch</a></li>
-                        </ul>
-                    </nav>
+			</div>
+		</section>
 
-                </div>
-            </div>
+	</main>
 
-        </div>
+	<footer class="site-footer">
+		<div class="footer-inner">
+			<span class="footer-sig">
+				<svg viewBox="0 0 100 160" fill="none" aria-hidden="true">
+					<path d="M62 6 C74 10 78 26 74 44 C70 62 64 80 58 98 C53 114 50 132 46 148 C44 154 40 154 38 146 C34 130 32 110 34 90 C36 68 42 44 50 24 C53 15 56 8 62 6 Z" stroke="#4cc8a3" stroke-width="6" />
+				</svg>
+				DESIGNED &amp; BUILT IN TAIWAN
+			</span>
+			<ul class="social-row">
+				<li><a href="https://www.linkedin.com/in/勳威-杜-a4b073119" aria-label="LinkedIn" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.36V9h3.41v1.56h.05c.47-.9 1.63-1.85 3.36-1.85 3.6 0 4.27 2.37 4.27 5.45v6.29zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.12 20.45H3.56V9h3.56v11.45z"/></svg></a></li>
+				<li><a href="https://www.facebook.com/profile.php?id=100002734296589&amp;locale=zh_TW" aria-label="Facebook" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13.5 21v-8.25h2.77l.41-3.22H13.5V7.47c0-.93.26-1.57 1.6-1.57h1.7V3.02c-.3-.04-1.3-.13-2.48-.13-2.45 0-4.13 1.5-4.13 4.24v2.37H7.5v3.22h2.69V21h3.31z"/></svg></a></li>
+				<li><a href="https://www.instagram.com/hsun_wei_tu/" aria-label="Instagram" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.16c3.2 0 3.58.01 4.85.07 3.25.15 4.77 1.69 4.92 4.92.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.15 3.23-1.66 4.77-4.92 4.92-1.27.06-1.65.07-4.85.07s-3.58-.01-4.85-.07c-3.26-.15-4.77-1.7-4.92-4.92-.06-1.27-.07-1.65-.07-4.85s.01-3.58.07-4.85C2.38 3.92 3.9 2.38 7.15 2.23 8.42 2.17 8.8 2.16 12 2.16zm0 3.68a6.16 6.16 0 1 0 0 12.32 6.16 6.16 0 0 0 0-12.32zm0 10.16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.41-11.85a1.44 1.44 0 1 0 0 2.88 1.44 1.44 0 0 0 0-2.88z"/></svg></a></li>
+				<li><a href="https://line.me/ti/p/2c_H8ZEUiS" aria-label="Line" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2C6.48 2 2 5.64 2 10.13c0 4.03 3.58 7.4 8.41 8.04.33.07.77.22.89.5.1.26.07.66.03.92l-.14.86c-.04.26-.2 1.01.88.55 1.09-.46 5.87-3.45 8.01-5.91C21.55 13.42 22 11.85 22 10.13 22 5.64 17.52 2 12 2z"/></svg></a></li>
+			</ul>
+			<span class="copyright">© 2026 HSUN-WEI (WES) TU · 杜勳威</span>
+		</div>
+	</footer>
 
-        <!-- Scripts -->
-        <script src="assets/js/jquery.min.js"></script>
-        <script src="assets/js/browser.min.js"></script>
-        <script src="assets/js/breakpoints.min.js"></script>
-        <script src="assets/js/util.js"></script>
-        <script src="assets/js/main.js"></script>
-
-    </body>
+	<script src="assets/tech/tech.js"></script>
+</body>
 </html>

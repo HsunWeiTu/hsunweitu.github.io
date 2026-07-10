@@ -1,159 +1,142 @@
-<!DOCTYPE HTML>
-<!--
-	Editorial by HTML5 UP
-	html5up.net | @ajlkn
-	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
--->
-<html>
-	<head>
-		<title>Personal Website of Wes Tu</title>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-		<link rel="stylesheet" href="assets/css/main.css" />
-	</head>
-	<body class="is-preload">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Techncare Biomedical — Wes Tu | 杜勳威</title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<meta name="description" content="Pet health-care devices designed and patented by Hsun-Wei (Wes) Tu at Techncare Biomedical Technology." />
+	<link rel="preconnect" href="https://fonts.googleapis.com" />
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+	<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet" />
+	<link rel="stylesheet" href="assets/tech/tech.css" />
+</head>
+<body>
 
-		<!-- Wrapper -->
-			<div id="wrapper">
+	<canvas id="grid-canvas"></canvas>
+	<div class="vignette"></div>
 
-				<!-- Main -->
-					<div id="main">
-						<div class="inner">
+	<header class="site-header">
+		<nav class="nav-inner">
+			<a class="brand" href="index.html">
+				<span class="brand-mark" aria-hidden="true">
+					<svg viewBox="0 0 24 24" fill="none" stroke="#f2a35c" stroke-width="1.6" stroke-linecap="round">
+						<circle cx="6" cy="18" r="2.2" />
+						<path d="M7.5 16.3 L11 9.5" />
+						<circle cx="11.6" cy="8.4" r="1.8" />
+						<path d="M13 7.2 L17.5 4.8" />
+						<path d="M17.5 4.8 L20 6.8 M17.5 4.8 L19.5 2.6" stroke="#4cc8a3" />
+					</svg>
+				</span>
+				<span class="brand-text">
+					<span class="brand-name">WES.TU</span>
+					<span class="brand-sub">MECHATRONICS · 杜勳威</span>
+				</span>
+			</a>
+			<button class="nav-toggle" aria-label="Open menu"><span></span><span></span><span></span></button>
+			<ul class="nav-links">
+				<li><a href="index.html">Home</a></li>
+				<li><a href="academic_background.html">Academic</a></li>
+				<li class="nav-drop active">
+					<button class="nav-drop-label">Experience <span class="caret">▼</span></button>
+					<ul class="nav-dropdown">
+						<li><a href="work_experience.html">Overview</a></li>
+						<li><a href="Techncare.html">Techncare Biomedical</a></li>
+						<li><a href="Saultech.html">Saultech Technology</a></li>
+						<li><a href="Grenergy.html">Grenergy Technology</a></li>
+					</ul>
+				</li>
+				<li><a href="hobbies.html">Hobbies</a></li>
+				<li><a href="get_in_touch.html">Contact</a></li>
+			</ul>
+		</nav>
+	</header>
 
-							<!-- Header -->
-								<header id="header">
-									<a href="index.html" class="logo">Portfolio of  <strong>Wes Tu</strong></a>
-									<ul class="icons">
-										<li><a href="www.linkedin.com/in/勳威-杜-a4b073119" class="icon brands fa-linkedin"><span class="label">LinkedIn</span></a></li>
-										<li><a href="https://www.facebook.com/profile.php?id=100002734296589&locale=zh_TW" class="icon brands fa-facebook-f"><span class="label">Facebook</span></a></li>
-										<li><a href="https://www.instagram.com/hsun_wei_tu?igsh=Y3gwd2I4dDMzamRz&utm_source=qr" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
-										<li><a href="https://line.me/ti/p/2c_H8ZEUiS" class="icon brands fa-line"><span class="label">Line</span></a></li>
-									</ul>
-								</header>
+	<main>
 
-							<!-- Content -->
-								<section>
-									<header class="main">
-										<h1>Techncare Biomedical Technology</h1>
-									</header>
-
-									<span class="image main"><img src="images/pic11.jpg" alt="" /></span>
-									
-									<hr class="major" />
-									<h2>Pet Monitor</h2>
-									<p>
-									  <span class="image left"><img src="images/pet_monitor.jpg" alt="Pet Monitor" /></span>
-									  This is a pet breathing and heartbeat monitor for which I applied for a patent. I also collaborated with vets to conduct experiments and handled firmware maintenance for the device.
-									</p>
-									<div style="clear: both;"></div>
-									
-									<hr class="major" />
-									<h2>Pet Thermometer</h2>
-									<p>
-									  <span class="image left"><img src="images/pet_thermometer.jpg" alt="Pet Thermometer" /></span>
-									  This is a pet thermometer for which I applied for a patent. I also collaborated with vets to conduct experiments and handled firmware maintenance for the device.
-									</p>
-									<div style="clear: both;"></div>
-									
-									<hr class="major" />
-									<h2>Pet Comb</h2>
-									<p>
-									  <span class="image left"><img src="images/pet_comb.jpg" alt="Pet Comb" /></span>
-									  This is a pet comb for which I applied for a patent. I also collaborated with vets to conduct experiments and handled firmware maintenance for the device.
-									</p>
-									<div style="clear: both;"></div>
-								</section>
-
-						</div>
-					</div>
-
-				<!-- Sidebar -->
-					<div id="sidebar">
-						<div class="inner">
-
-							<!-- Search -->
-								<section id="search" class="alt">
-									<form method="post" action="#">
-										<input type="text" name="query" id="query" placeholder="Search" />
-									</form>
-								</section>
-
-							<!-- Menu -->
-								<nav id="menu">
-									<header class="major">
-										<h2>Menu</h2>
-									</header>
-									<ul>
-										<li><a href="index.html">Homepage</a></li>
-										<li><a href="academic_background.html">Academic Background</a></li>										
-										<li>
-											<span class="opener">Work Experience</span>
-											<ul>
-												<li><a href="work_experience.html">Overview</a></li>
-												<li><a href="Techncare.html">Techncare Biomedical Technology</a></li>
-												<li><a href="Saultech">Saultech Technology</a></li>
-												<li><a href="Grenergy">Grenergy Technology</a></li>
-											</ul>
-										</li>
-										<li><a href="hobbies.html">Hobbies</a></li>										
-										<li><a href="get_in_touch.html">Get In Touch</a></li>
-									</ul>
-								</nav>
-
-							<!-- Section -->
-								<section>
-									<header class="major">
-										<h2>Ante interdum</h2>
-									</header>
-									<div class="mini-posts">
-										<article>
-											<a href="#" class="image"><img src="images/pic07.jpg" alt="" /></a>
-											<p>Aenean ornare velit lacus, ac varius enim lorem ullamcorper dolore aliquam.</p>
-										</article>
-										<article>
-											<a href="#" class="image"><img src="images/pic08.jpg" alt="" /></a>
-											<p>Aenean ornare velit lacus, ac varius enim lorem ullamcorper dolore aliquam.</p>
-										</article>
-										<article>
-											<a href="#" class="image"><img src="images/pic09.jpg" alt="" /></a>
-											<p>Aenean ornare velit lacus, ac varius enim lorem ullamcorper dolore aliquam.</p>
-										</article>
-									</div>
-									<ul class="actions">
-										<li><a href="#" class="button">More</a></li>
-									</ul>
-								</section>
-
-							<!-- Section -->
-								<section>
-									<header class="major">
-										<h2>Get in touch</h2>
-									</header>
-									<p>If you have any project needs related to my expertise, please feel free to reach out to me at any time.</p>
-									<ul class="contact">
-										<li class="icon solid fa-envelope"><a href="#">wes010657@gmail.com</a></li>
-										<li class="icon solid fa-phone">(+886)978-000000</li>
-										<li class="icon solid fa-home">1234 Somewhere Road #8254<br />
-										Nashville, TN 00000-0000</li>
-									</ul>
-								</section>
-
-							<!-- Footer -->
-								<footer id="footer">
-									<p class="copyright">&copy; Untitled. All rights reserved. Demo Images: <a href="https://unsplash.com">Unsplash</a>. Design: <a href="https://html5up.net">HTML5 UP</a>.</p>
-								</footer>
-
-						</div>
-					</div>
-
+		<section class="page-hero">
+			<div class="reveal">
+				<div class="page-id">LOG.01 / Techncare Biomedical <span class="zh">寵物醫療</span></div>
+				<h1>Sensors with a heartbeat</h1>
+				<p class="lead">Devices that watch over the health of pets — patented by me, validated with veterinarians, kept alive through firmware maintenance.</p>
+				<div class="career-track mono">
+					<span class="t-node">NTU M.S.</span><span class="t-link">→</span>
+					<span class="t-node here">Techncare</span><span class="t-link">→</span>
+					<span class="t-node">Saultech</span><span class="t-link">→</span>
+					<span class="t-node">Grenergy</span><span class="t-link">→</span>
+					<span class="t-node future">Robotics ▣</span>
+				</div>
 			</div>
+		</section>
 
-		<!-- Scripts -->
-			<script src="assets/js/jquery.min.js"></script>
-			<script src="assets/js/browser.min.js"></script>
-			<script src="assets/js/breakpoints.min.js"></script>
-			<script src="assets/js/util.js"></script>
-			<script src="assets/js/main.js"></script>
+		<section class="section" style="padding-top: 0.5rem;">
 
-	</body>
+			<article class="spec-card hud reveal">
+				<div class="spec-media"><img src="images/pet_monitor.jpg" alt="Pet breathing and heartbeat monitor" /></div>
+				<div class="spec-body">
+					<div class="spec-title-row">
+						<h2><span class="spec-id">TC-01 · 監測</span>Pet Breathing &amp; Heartbeat Monitor</h2>
+						<span class="status-pill pat">● Patented</span>
+					</div>
+					<dl class="spec-fields">
+						<dt>Role</dt><dd>Patent author · veterinary experiment lead · firmware maintainer</dd>
+						<dt>Stack</dt><dd>C firmware · physiological sensing · clinical validation protocol</dd>
+						<dt>Outcome</dt><dd>Patent drafted and filed by me; performance validated in real clinics with practicing veterinarians; firmware maintained across its lifecycle.</dd>
+					</dl>
+				</div>
+			</article>
+
+			<article class="spec-card hud reveal">
+				<div class="spec-media"><img src="images/pet_thermometer.jpg" alt="Pet thermometer" /></div>
+				<div class="spec-body">
+					<div class="spec-title-row">
+						<h2><span class="spec-id">TC-02 · 測溫</span>Pet Thermometer</h2>
+						<span class="status-pill pat">● Patented</span>
+					</div>
+					<dl class="spec-fields">
+						<dt>Role</dt><dd>Patent author · clinical accuracy verification · firmware maintainer</dd>
+						<dt>Stack</dt><dd>Infrared thermometry · C firmware · vet-clinic field testing</dd>
+						<dt>Outcome</dt><dd>An IR thermometer built for animals that refuse to sit still — patent filed, accuracy verified in clinical settings, every firmware revision kept in tune.</dd>
+					</dl>
+				</div>
+			</article>
+
+			<article class="spec-card hud reveal">
+				<div class="spec-media"><img src="images/pet_comb.jpg" alt="Pet health-monitoring comb" /></div>
+				<div class="spec-body">
+					<div class="spec-title-row">
+						<h2><span class="spec-id">TC-03 · 梳理</span>Pet Health Comb</h2>
+						<span class="status-pill pat">● Patented</span>
+					</div>
+					<dl class="spec-fields">
+						<dt>Role</dt><dd>Mechanical designer (form + structure) · patent author · firmware maintainer</dd>
+						<dt>Stack</dt><dd>Industrial design · IR sensing integration · C firmware</dd>
+						<dt>Outcome</dt><dd>A grooming comb doubling as a health sensor — turning a daily habit into a daily checkup. Appearance and structure designed by me, patent filed, veterinary experiments coordinated.</dd>
+					</dl>
+				</div>
+			</article>
+
+		</section>
+
+	</main>
+
+	<footer class="site-footer">
+		<div class="footer-inner">
+			<span class="footer-sig">
+				<svg viewBox="0 0 100 160" fill="none" aria-hidden="true">
+					<path d="M62 6 C74 10 78 26 74 44 C70 62 64 80 58 98 C53 114 50 132 46 148 C44 154 40 154 38 146 C34 130 32 110 34 90 C36 68 42 44 50 24 C53 15 56 8 62 6 Z" stroke="#4cc8a3" stroke-width="6" />
+				</svg>
+				DESIGNED &amp; BUILT IN TAIWAN
+			</span>
+			<ul class="social-row">
+				<li><a href="https://www.linkedin.com/in/勳威-杜-a4b073119" aria-label="LinkedIn" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.36V9h3.41v1.56h.05c.47-.9 1.63-1.85 3.36-1.85 3.6 0 4.27 2.37 4.27 5.45v6.29zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.12 20.45H3.56V9h3.56v11.45z"/></svg></a></li>
+				<li><a href="https://www.facebook.com/profile.php?id=100002734296589&amp;locale=zh_TW" aria-label="Facebook" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13.5 21v-8.25h2.77l.41-3.22H13.5V7.47c0-.93.26-1.57 1.6-1.57h1.7V3.02c-.3-.04-1.3-.13-2.48-.13-2.45 0-4.13 1.5-4.13 4.24v2.37H7.5v3.22h2.69V21h3.31z"/></svg></a></li>
+				<li><a href="https://www.instagram.com/hsun_wei_tu/" aria-label="Instagram" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.16c3.2 0 3.58.01 4.85.07 3.25.15 4.77 1.69 4.92 4.92.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.15 3.23-1.66 4.77-4.92 4.92-1.27.06-1.65.07-4.85.07s-3.58-.01-4.85-.07c-3.26-.15-4.77-1.7-4.92-4.92-.06-1.27-.07-1.65-.07-4.85s.01-3.58.07-4.85C2.38 3.92 3.9 2.38 7.15 2.23 8.42 2.17 8.8 2.16 12 2.16zm0 3.68a6.16 6.16 0 1 0 0 12.32 6.16 6.16 0 0 0 0-12.32zm0 10.16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.41-11.85a1.44 1.44 0 1 0 0 2.88 1.44 1.44 0 0 0 0-2.88z"/></svg></a></li>
+				<li><a href="https://line.me/ti/p/2c_H8ZEUiS" aria-label="Line" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2C6.48 2 2 5.64 2 10.13c0 4.03 3.58 7.4 8.41 8.04.33.07.77.22.89.5.1.26.07.66.03.92l-.14.86c-.04.26-.2 1.01.88.55 1.09-.46 5.87-3.45 8.01-5.91C21.55 13.42 22 11.85 22 10.13 22 5.64 17.52 2 12 2z"/></svg></a></li>
+			</ul>
+			<span class="copyright">© 2026 HSUN-WEI (WES) TU · 杜勳威</span>
+		</div>
+	</footer>
+
+	<script src="assets/tech/tech.js"></script>
+</body>
 </html>

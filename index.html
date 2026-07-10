@@ -1,240 +1,271 @@
-<!DOCTYPE HTML>
-<!--
-	Editorial by HTML5 UP
-	html5up.net | @ajlkn
-	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
--->
-<html>
-	<head>
-		<title>Personal Website of Wes Tu</title>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-		<link rel="stylesheet" href="assets/css/main.css" />
-		<meta name="google-site-verification" content="PjugnuYNEwTCw6sUb5rPY_pIsQVkkYIkKJAwNIurM7U" />
-	</head>
-	
-	<body class="is-preload">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Wes Tu — Mechatronics → Robotics | 杜勳威</title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<meta name="description" content="Hsun-Wei (Wes) Tu — mechatronics engineer heading toward robotics. Machine design, motor-control firmware, patents. Designed & built in Taiwan." />
+	<meta name="google-site-verification" content="PjugnuYNEwTCw6sUb5rPY_pIsQVkkYIkKJAwNIurM7U" />
+	<link rel="preconnect" href="https://fonts.googleapis.com" />
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+	<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet" />
+	<link rel="stylesheet" href="assets/tech/tech.css" />
+</head>
+<body>
 
-		<!-- Wrapper -->
-			<div id="wrapper">
+	<canvas id="grid-canvas"></canvas>
+	<div class="vignette"></div>
 
-				<!-- Main -->
-					<div id="main">
-						<div class="inner">
+	<header class="site-header">
+		<nav class="nav-inner">
+			<a class="brand" href="index.html">
+				<span class="brand-mark" aria-hidden="true">
+					<svg viewBox="0 0 24 24" fill="none" stroke="#f2a35c" stroke-width="1.6" stroke-linecap="round">
+						<circle cx="6" cy="18" r="2.2" />
+						<path d="M7.5 16.3 L11 9.5" />
+						<circle cx="11.6" cy="8.4" r="1.8" />
+						<path d="M13 7.2 L17.5 4.8" />
+						<path d="M17.5 4.8 L20 6.8 M17.5 4.8 L19.5 2.6" stroke="#4cc8a3" />
+					</svg>
+				</span>
+				<span class="brand-text">
+					<span class="brand-name">WES.TU</span>
+					<span class="brand-sub">MECHATRONICS · 杜勳威</span>
+				</span>
+			</a>
+			<button class="nav-toggle" aria-label="Open menu"><span></span><span></span><span></span></button>
+			<ul class="nav-links">
+				<li class="active"><a href="index.html">Home</a></li>
+				<li><a href="academic_background.html">Academic</a></li>
+				<li class="nav-drop">
+					<button class="nav-drop-label">Experience <span class="caret">▼</span></button>
+					<ul class="nav-dropdown">
+						<li><a href="work_experience.html">Overview</a></li>
+						<li><a href="Techncare.html">Techncare Biomedical</a></li>
+						<li><a href="Saultech.html">Saultech Technology</a></li>
+						<li><a href="Grenergy.html">Grenergy Technology</a></li>
+					</ul>
+				</li>
+				<li><a href="hobbies.html">Hobbies</a></li>
+				<li><a href="get_in_touch.html">Contact</a></li>
+			</ul>
+		</nav>
+	</header>
 
-							<!-- Header -->
-								<header id="header">
-									<a href="index.html" class="logo">Portfolio of  <strong>Wes Tu</strong></a>
-									<ul class="icons">
-										<li><a href="www.linkedin.com/in/勳威-杜-a4b073119" class="icon brands fa-linkedin"><span class="label">LinkedIn</span></a></li>
-										<li><a href="https://www.facebook.com/profile.php?id=100002734296589&locale=zh_TW" class="icon brands fa-facebook-f"><span class="label">Facebook</span></a></li>
-										<li><a href="https://www.instagram.com/hsun_wei_tu/" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
-										<li><a href="https://line.me/ti/p/2c_H8ZEUiS" class="icon brands fa-line"><span class="label">Line</span></a></li>
-									</ul>
-								</header>
+	<main>
 
-							<!-- Banner -->
-								<section id="banner">
-									<div class="content">
-										<header>
-											<h1>Hi, I’m Wes Tu<br />
-											from Taiwan</h1>
-											<p>An engineer with a keen interest in mechatronics</p>
-										</header>
-										<p>Hi, my name is HSUN-WEI TU 杜勳威, you can call me Wes. I graduated from National Taiwan University with a major at mechanical engineering. Welcome to my personal website.</p>
-										<!--<ul class="actions">
-											<li><a href="#" class="button big">Learn More</a></li>
-										</ul> -->
-									</div>
-									<span class="image object">
-										<img src="images/Wes_Cover_Photo.jpg" alt="" />
-									</span>
-								</section>
-
-							<!-- Section -->
-								<section>
-									<header class="major">
-										<h2>Specialized Fields</h2>
-									</header>
-									<div class="features">
-										<article>
-											<span class="icon solid fa-pen"></span>
-											<div class="content">
-												<h3>Mechanical Design</h3>
-												<p>I have the capability to independently design semiconductor equipment. My past designs include a semiconductor chip cleaning machine, a debonding test platform, a UV de-gluing machine, and various manual operation modules.</p>
-											</div>
-										</article>
-										<article>
-											<span class="icon brands fa-searchengin"></span>
-											<div class="content">
-												<h3>Patent Application & Search</h3>
-												<p>With four years of experiences in patent, I've got the ability to conduct patent searches and draft new patent applications. I have independently written and successfully filed a utility patent related to the design of a cup, showcasing my capability to handle the entire process from start to finish.</p>
-											</div>
-										</article>
-										<article>
-											<span class="icon solid fa-code"></span>
-											<div class="content">
-												<h3>Firmware Programming</h3>
-												<p>Since 2024, I have been working as a firmware engineer, with expertise in ARM systems, primarily using ST microcontrollers. My programming work mainly focuses on brushless DC motor control.</p>
-											</div>
-										</article>
-										<article>
-											<span class="icon solid fa-person-chalkboard"></span>
-											<div class="content">
-												<h3>Tutoring</h3>
-												<p>Since university, I’ve consistently taken on tutoring jobs. Most recently, I taught a pair of twin junior high school girls, helping them improve their math and science scores from below 20 to consistently passing levels—and even reaching scores as high as 80. This experience demonstrated both my teaching ability and my patience in working with students who struggle academically.</p>
-											</div>
-										</article>
-									</div>
-								</section>
-
-							<!-- Section -->
-								<section>
-									<header class="major">
-										<h2>Work Showcase</h2>
-									</header>
-									<div class="posts">
-										<article>
-											<a href="#" class="image"><img src="images/cleaner.jpg" alt="Mechine Design" /></a>
-											<h3>Mechine Design</h3>
-											<p>I have designed numerous equipment systems, including two that have been deployed in TSMC’s production lines: one semiconductor wafer cleaning machine and one JEDEC tray cassette load/unload system. Additionally, I’ve developed machines used in hybrid bonding experiment platforms.</p>
-											<ul class="actions">
-												<li><a href="#" class="button">More</a></li>
-											</ul>
-										</article>
-										<article>
-											<a href="#" class="image"><img src="images/cup_patent.jpg" alt="Patent Application" /></a>
-											<h3>Patent Application and Patent search</h3>
-											<p>I hold a patent search certification and have successfully drafted and filed patents on my own.</p>
-											<ul class="actions">
-												<li><a href="#" class="button">More</a></li>
-											</ul>
-										</article>
-										<article>
-											<a href="#" class="image"><img src="images/pic03.jpg" alt="Firmware Design" /></a>
-											<h3>Firmware Design</h3>
-											<p>I used a commercially available BLDC motor driver board and programmed it with my custom firmware based on the block commutation control method to operate the motor.</p>
-											<ul class="actions">
-												<li><a href="#" class="button">More</a></li>
-											</ul>
-										</article>
-										<article>
-											<a href="#" class="image"><img src="images/pic05.jpg" alt="Flight control system" /></a>
-											<h3>Flight control system</h3>
-											<p>I conducted secondary development on a quadcopter drone based on the PX4 system.</p>
-											<ul class="actions">
-												<li><a href="#" class="button">More</a></li>
-											</ul>
-										</article>
-										<article>
-											<a href="#" class="image"><img src="images/pic04.jpg" alt="BLDC Motor Design" /></a>
-											<h3>BLDC Motor Design</h3>
-											<p>I designed three sets of BLDC motor components, including the stator, rotor, and the winding methodology.</p>
-											<ul class="actions">
-												<li><a href="#" class="button">More</a></li>
-											</ul>
-										</article>
-										<article>
-											<a href="#" class="image"><img src="images/pic06.jpg" alt="AI" /></a>
-											<h3>AI</h3>
-											<p>I am actively exploring the applications of AI in industrial settings.</p>
-											<ul class="actions">
-												<li><a href="#" class="button">More</a></li>
-											</ul>
-										</article>
-									</div>
-								</section>
-
-						</div>
-					</div>
-
-				<!-- Sidebar -->
-					<div id="sidebar">
-						<div class="inner">
-
-							<!-- Search -->
-								<section id="search" class="alt">
-									<form method="post" action="#">
-										<input type="text" name="query" id="query" placeholder="Search" />
-									</form>
-								</section>
-
-							<!-- Menu -->
-								<nav id="menu">
-									<header class="major">
-										<h2>Menu</h2>
-									</header>
-									<ul>
-										<li><a href="index.html">Homepage</a></li>
-										<li><a href="academic_background.html">Academic Background</a></li>										
-										<li>
-											<span class="opener">Work Experience</span>
-											<ul>
-												<li><a href="work_experience.html">Overview</a></li>
-												<li><a href="Techncare.html">Techncare Biomedical Technology</a></li>
-												<li><a href="Saultech">Saultech Technology</a></li>
-												<li><a href="Grenergy">Grenergy Technology</a></li>
-											</ul>
-										</li>
-										<li><a href="hobbies.html">Hobbies</a></li>										
-										<li><a href="get_in_touch.html">Get In Touch</a></li>
-									</ul>
-								</nav>
-
-							<!-- Section -->
-								<section>
-									<header class="major">
-										<h2>Ante interdum</h2>
-									</header>
-									<div class="mini-posts">
-										<article>
-											<a href="#" class="image"><img src="images/pic07.jpg" alt="" /></a>
-											<p>Aenean ornare velit lacus, ac varius enim lorem ullamcorper dolore aliquam.</p>
-										</article>
-										<article>
-											<a href="#" class="image"><img src="images/pic08.jpg" alt="" /></a>
-											<p>Aenean ornare velit lacus, ac varius enim lorem ullamcorper dolore aliquam.</p>
-										</article>
-										<article>
-											<a href="#" class="image"><img src="images/pic09.jpg" alt="" /></a>
-											<p>Aenean ornare velit lacus, ac varius enim lorem ullamcorper dolore aliquam.</p>
-										</article>
-									</div>
-									<ul class="actions">
-										<li><a href="#" class="button">More</a></li>
-									</ul>
-								</section>
-
-							<!-- Section -->
-								<section>
-									<header class="major">
-										<h2>Get in touch</h2>
-									</header>
-									<p>If you have any project needs related to my expertise, please feel free to reach out to me at any time.</p>
-									<ul class="contact">
-										<li class="icon solid fa-envelope"><a href="#">wes010657@gmail.com</a></li>
-										<li class="icon solid fa-phone">(+886)978-000000</li>
-										<li class="icon solid fa-home">1234 Somewhere Road #8254<br />
-										Nashville, TN 00000-0000</li>
-									</ul>
-								</section>
-
-							<!-- Footer -->
-								<footer id="footer">
-									<p class="copyright">&copy; Untitled. All rights reserved. Demo Images: <a href="https://unsplash.com">Unsplash</a>. Design: <a href="https://html5up.net">HTML5 UP</a>.</p>
-								</footer>
-
-						</div>
-					</div>
-
+		<!-- ============ HERO ============ -->
+		<section class="hero">
+			<div class="hero-content">
+				<div class="hero-boot mono reveal">
+					<span class="prompt">wes@taiwan:~$</span>
+					<span class="typed" data-phrases='["init mechatronics_engineer --target robotics","design semiconductor_equipment --precision um","drive bldc_motor --method zero-crossing","file patent --status granted","build the_future --with robots"]'></span><span class="type-cursor"></span>
+				</div>
+				<h1 class="reveal" style="--reveal-delay: 0.1s;">
+					I teach machines<br />how to <span class="accent">move</span>.
+					<span class="zh">機電整合工程師 · 邁向機器人之路</span>
+				</h1>
+				<p class="subtitle reveal" style="--reveal-delay: 0.2s;">
+					I'm <strong>Hsun-Wei Tu 杜勳威</strong> — Wes. NTU-trained mechanical engineer turned firmware developer.
+					I design precision machines, write motor-control firmware, and file the patents that protect them.
+					Next destination: <span class="accent-jade">robotics</span>.
+				</p>
+				<div class="hero-meta reveal" style="--reveal-delay: 0.3s;">
+					<span>Hsinchu, Taiwan</span>
+					<span>NTU M.S. Mech.</span>
+					<span>EST. 2024 → Firmware</span>
+				</div>
+				<div class="hero-actions reveal" style="--reveal-delay: 0.4s;">
+					<a class="btn btn-fill" href="work_experience.html">View Work</a>
+					<a class="btn" href="get_in_touch.html">Contact</a>
+				</div>
 			</div>
+		</section>
 
-		<!-- Scripts -->
-			<script src="assets/js/jquery.min.js"></script>
-			<script src="assets/js/browser.min.js"></script>
-			<script src="assets/js/breakpoints.min.js"></script>
-			<script src="assets/js/util.js"></script>
-			<script src="assets/js/main.js"></script>
+		<!-- ============ stats ============ -->
+		<section class="section" style="padding-top: 1rem;">
+			<div class="stats-strip reveal">
+				<div class="stat">
+					<div class="stat-num"><span data-count="7">0</span><span class="unit">+</span></div>
+					<div class="stat-label">Machines Designed 機台設計</div>
+				</div>
+				<div class="stat">
+					<div class="stat-num"><span data-count="5">0</span><span class="unit">+</span></div>
+					<div class="stat-label">Patents Filed 專利申請</div>
+				</div>
+				<div class="stat">
+					<div class="stat-num"><span data-count="7">0</span></div>
+					<div class="stat-label">Motors Developed 馬達開發</div>
+				</div>
+				<div class="stat">
+					<div class="stat-num"><span data-count="3">0</span></div>
+					<div class="stat-label">Industries Crossed 跨域經歷</div>
+				</div>
+			</div>
+		</section>
 
-	</body>
+		<!-- ============ capabilities + radar ============ -->
+		<section class="section">
+			<div class="section-head reveal">
+				<div class="index-line">01 / Capabilities <span class="zh">核心能力</span></div>
+				<h2>System-level engineering, joint by joint</h2>
+				<p class="lead">A robot needs mechanics, electronics, firmware, and someone who can defend the ideas on paper. I do all four.</p>
+			</div>
+			<div class="cap-wrap">
+				<div class="cap-list">
+					<div class="cap-item hud" style="--val: 92%;">
+						<div class="cap-head">
+							<h3><span class="cap-id">CAP-01</span> Mechanical Design</h3>
+							<span class="cap-zh">機構設計</span>
+						</div>
+						<p>Semiconductor equipment designed end-to-end: chip cleaning machine, debonding platform, UV de-gluing machine, precision modules.</p>
+						<div class="cap-bar"><i></i></div>
+					</div>
+					<div class="cap-item hud" style="--val: 84%;">
+						<div class="cap-head">
+							<h3><span class="cap-id">CAP-02</span> Firmware / Motor Control</h3>
+							<span class="cap-zh">韌體開發</span>
+						</div>
+						<p>ARM Cortex-M on ST MCUs. Sensorless BLDC control with zero-crossing detection; CubeMX + Keil workflow.</p>
+						<div class="cap-bar"><i></i></div>
+					</div>
+					<div class="cap-item hud" style="--val: 88%;">
+						<div class="cap-head">
+							<h3><span class="cap-id">CAP-03</span> Patent Engineering</h3>
+							<span class="cap-zh">專利工程</span>
+						</div>
+						<p>Four years of prior-art search and drafting. Filed a utility patent solo — from first claim to grant.</p>
+						<div class="cap-bar"><i></i></div>
+					</div>
+					<div class="cap-item hud" style="--val: 72%;">
+						<div class="cap-head">
+							<h3><span class="cap-id">CAP-04</span> Flight & Motion Systems</h3>
+							<span class="cap-zh">飛控系統</span>
+						</div>
+						<p>PX4-based quadcopter development — autonomous takeoff, mission planning, return-to-home via ground control station.</p>
+						<div class="cap-bar"><i></i></div>
+					</div>
+				</div>
+				<div class="radar-box hud reveal">
+					<canvas id="radar-chart"
+						data-labels='["機構設計","韌體開發","專利工程","光學系統","運動控制","教學能力"]'
+						data-values='[0.92, 0.84, 0.88, 0.7, 0.76, 0.8]'></canvas>
+					<div class="radar-caption">Capability Radar · v2026.07</div>
+				</div>
+			</div>
+		</section>
+
+		<!-- ============ selected works ============ -->
+		<section class="section">
+			<div class="section-head reveal">
+				<div class="index-line">02 / Selected Works <span class="zh">精選作品</span></div>
+				<h2>Machines that shipped</h2>
+				<p class="lead">Some run inside TSMC production lines. Some fly. All of them started as a blank drawing.</p>
+			</div>
+			<div class="card-grid">
+				<article class="tech-card hud reveal">
+					<a class="card-media" href="Saultech.html"><span class="card-tag">SEMICON</span><img src="images/cleaner.jpg" alt="Semiconductor die cleaning machine" /></a>
+					<div class="card-body">
+						<h3>Die Cleaning Machine — World First</h3>
+						<p>Mechanism + process layout designed solo; deployed technology now protected by my invention patents.</p>
+						<a class="btn" href="Saultech.html">Open</a>
+					</div>
+				</article>
+				<article class="tech-card hud reveal" style="--reveal-delay: 0.08s;">
+					<a class="card-media" href="Grenergy.html"><span class="card-tag">MOTOR</span><img src="images/drone_motor.jpg" alt="Drone motor" /></a>
+					<div class="card-body">
+						<h3>Drone Motor Line</h3>
+						<p>Four motor designs carried from CAD to golden sample to mass-production SOP.</p>
+						<a class="btn" href="Grenergy.html">Open</a>
+					</div>
+				</article>
+				<article class="tech-card hud reveal" style="--reveal-delay: 0.16s;">
+					<a class="card-media" href="Grenergy.html"><span class="card-tag">FIRMWARE</span><img src="images/pic03.jpg" alt="BLDC motor driver board" /></a>
+					<div class="card-body">
+						<h3>Sensorless BLDC Control</h3>
+						<p>Zero-crossing commutation firmware written from scratch — spec'd with the client, tuned until it sang.</p>
+						<a class="btn" href="Grenergy.html">Open</a>
+					</div>
+				</article>
+				<article class="tech-card hud reveal">
+					<a class="card-media" href="Grenergy.html"><span class="card-tag">FLIGHT</span><img src="images/pic05.jpg" alt="Quadcopter drone" /></a>
+					<div class="card-body">
+						<h3>PX4 Autonomous Flight</h3>
+						<p>Mission planning, autonomous takeoff and return-to-home on a PX4 quadcopter platform.</p>
+						<a class="btn" href="Grenergy.html">Open</a>
+					</div>
+				</article>
+				<article class="tech-card hud reveal" style="--reveal-delay: 0.08s;">
+					<a class="card-media" href="Saultech.html"><span class="card-tag">OPTICS</span><img src="images/PMT.jpg" alt="Particle detection module" /></a>
+					<div class="card-body">
+						<h3>Laser Particle Detection</h3>
+						<p>Laser + photomultiplier optical path catching particles invisible to the eye — designed and validated end-to-end.</p>
+						<a class="btn" href="Saultech.html">Open</a>
+					</div>
+				</article>
+				<article class="tech-card hud reveal" style="--reveal-delay: 0.16s;">
+					<a class="card-media" href="work_experience.html"><span class="card-tag">PATENT</span><img src="images/cup_patent.jpg" alt="Patent drawing" /></a>
+					<div class="card-body">
+						<h3>Patent Portfolio</h3>
+						<p>Search-certified. Multiple filings across pet-care devices and semiconductor equipment — plus one cup, drafted solo.</p>
+						<a class="btn" href="work_experience.html">Open</a>
+					</div>
+				</article>
+			</div>
+		</section>
+
+		<!-- ============ mission: robotics ============ -->
+		<section class="section">
+			<div class="section-head reveal">
+				<div class="index-line">03 / Mission <span class="zh">職涯目標</span></div>
+			</div>
+			<div class="mission hud reveal">
+				<div class="taiwan-mark" aria-hidden="true">
+					<svg viewBox="0 0 100 160" fill="none">
+						<path d="M62 6 C74 10 78 26 74 44 C70 62 64 80 58 98 C53 114 50 132 46 148 C44 154 40 154 38 146 C34 130 32 110 34 90 C36 68 42 44 50 24 C53 15 56 8 62 6 Z"
+							stroke="rgba(233,231,223,0.5)" stroke-width="1.6" />
+						<circle cx="49" cy="33" r="3" fill="#f2a35c" />
+						<circle class="taiwan-pulse" cx="49" cy="33" r="3" fill="none" stroke="#f2a35c" stroke-width="1.4" />
+					</svg>
+					<span class="coords">HSINCHU · 24.80°N 120.97°E</span>
+				</div>
+				<div>
+					<h2>Next stop: robotics.
+						<span class="zh">下一站，機器人</span>
+					</h2>
+					<p>Every chapter so far — precision mechanics, optics, motor control, flight systems — has been a joint in the same arm.
+					My goal is to bring them together and build robots: machines that sense, decide, and move.
+					From Taiwan, where the world's machines are already born.</p>
+					<div class="mission-path mono">
+						<span class="node">Mechanics</span><span class="arrow">→</span>
+						<span class="node">Patents</span><span class="arrow">→</span>
+						<span class="node now">Motor Firmware</span><span class="arrow">→</span>
+						<span class="node goal">Robotics ▣</span>
+					</div>
+				</div>
+			</div>
+		</section>
+
+	</main>
+
+	<footer class="site-footer">
+		<div class="footer-inner">
+			<span class="footer-sig">
+				<svg viewBox="0 0 100 160" fill="none" aria-hidden="true">
+					<path d="M62 6 C74 10 78 26 74 44 C70 62 64 80 58 98 C53 114 50 132 46 148 C44 154 40 154 38 146 C34 130 32 110 34 90 C36 68 42 44 50 24 C53 15 56 8 62 6 Z" stroke="#4cc8a3" stroke-width="6" />
+				</svg>
+				DESIGNED &amp; BUILT IN TAIWAN
+			</span>
+			<ul class="social-row">
+				<li><a href="https://www.linkedin.com/in/勳威-杜-a4b073119" aria-label="LinkedIn" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.36V9h3.41v1.56h.05c.47-.9 1.63-1.85 3.36-1.85 3.6 0 4.27 2.37 4.27 5.45v6.29zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.12 20.45H3.56V9h3.56v11.45z"/></svg></a></li>
+				<li><a href="https://www.facebook.com/profile.php?id=100002734296589&amp;locale=zh_TW" aria-label="Facebook" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13.5 21v-8.25h2.77l.41-3.22H13.5V7.47c0-.93.26-1.57 1.6-1.57h1.7V3.02c-.3-.04-1.3-.13-2.48-.13-2.45 0-4.13 1.5-4.13 4.24v2.37H7.5v3.22h2.69V21h3.31z"/></svg></a></li>
+				<li><a href="https://www.instagram.com/hsun_wei_tu/" aria-label="Instagram" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.16c3.2 0 3.58.01 4.85.07 3.25.15 4.77 1.69 4.92 4.92.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.15 3.23-1.66 4.77-4.92 4.92-1.27.06-1.65.07-4.85.07s-3.58-.01-4.85-.07c-3.26-.15-4.77-1.7-4.92-4.92-.06-1.27-.07-1.65-.07-4.85s.01-3.58.07-4.85C2.38 3.92 3.9 2.38 7.15 2.23 8.42 2.17 8.8 2.16 12 2.16zm0 3.68a6.16 6.16 0 1 0 0 12.32 6.16 6.16 0 0 0 0-12.32zm0 10.16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.41-11.85a1.44 1.44 0 1 0 0 2.88 1.44 1.44 0 0 0 0-2.88z"/></svg></a></li>
+				<li><a href="https://line.me/ti/p/2c_H8ZEUiS" aria-label="Line" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2C6.48 2 2 5.64 2 10.13c0 4.03 3.58 7.4 8.41 8.04.33.07.77.22.89.5.1.26.07.66.03.92l-.14.86c-.04.26-.2 1.01.88.55 1.09-.46 5.87-3.45 8.01-5.91C21.55 13.42 22 11.85 22 10.13 22 5.64 17.52 2 12 2z"/></svg></a></li>
+			</ul>
+			<span class="copyright">© 2026 HSUN-WEI (WES) TU · 杜勳威</span>
+		</div>
+	</footer>
+
+	<script src="assets/tech/tech.js"></script>
+</body>
 </html>
