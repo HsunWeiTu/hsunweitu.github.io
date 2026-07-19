@@ -1,0 +1,13 @@
+# This is the GitHub Pages (portfolio) repo — display assets only.
+# All robot project source/data lives in the wes_car repo and is linked, not stored here.
+# If a firmware/CAD build tree ever lands here, ignore the heavy regenerable parts:
+**/Drivers/
+**/MDK-ARM/
+**/*.mxproject
+**/build/
+**/install/
+**/log/
+
+# OS / editor cruft
+.DS_Store
+Thumbs.db

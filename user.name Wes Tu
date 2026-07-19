@@ -26,5 +26,5 @@ branch.main.remote=origin
 branch.main.merge=refs/heads/main
 branch.main.vscode-merge-base=origin/main
 lfs.repositoryformatversion=0
-user.name=你的名字
-user.email=你的Email@example.com
+user.name=Wes Tu
+user.email=wes010657@gmail.com

@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<title>Hobbies — Wes Tu | 杜勳威</title>
+	<title>Projects — Wes Tu | 杜勳威</title>
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
-	<meta name="description" content="Beyond engineering — basketball, scuba diving, boxing, windsurfing, reading and gaming. The off-duty modes of Hsun-Wei (Wes) Tu." />
+	<meta name="description" content="Robotics builds and side projects by Hsun-Wei (Wes) Tu — ROS2 mobile robots, motor firmware, simulation and electronics." />
 	<link rel="preconnect" href="https://fonts.googleapis.com" />
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 	<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet" />
@@ -45,8 +45,8 @@
 						<li><a href="Grenergy.html">Grenergy Technology</a></li>
 					</ul>
 				</li>
-				<li><a href="projects.html">Projects</a></li>
-				<li class="active"><a href="hobbies.html">Hobbies</a></li>
+				<li class="active"><a href="projects.html">Projects</a></li>
+				<li><a href="hobbies.html">Hobbies</a></li>
 				<li><a href="get_in_touch.html">Contact</a></li>
 			</ul>
 		</nav>
@@ -56,9 +56,15 @@
 
 		<section class="page-hero">
 			<div class="reveal">
-				<div class="page-id">SYS.IDLE / Hobbies <span class="zh">興趣</span></div>
-				<h1>Off-duty modes</h1>
-				<p class="lead">Even servos need cooldown cycles. On courts, underwater, in the ring and between pages — these are mine.</p>
+				<div class="page-id">SYS.LAB / Projects <span class="zh">作品實驗室</span></div>
+				<h1>The workshop floor</h1>
+				<p class="lead">Robots I build after hours — where mechanics, firmware, control and simulation come together. Open a build to browse its source, schematics, and models.</p>
+				<div class="career-track mono">
+					<span class="t-node">Mechanics</span><span class="t-link">→</span>
+					<span class="t-node">Patents</span><span class="t-link">→</span>
+					<span class="t-node">Motor Firmware</span><span class="t-link">→</span>
+					<span class="t-node future">Robotics ▣</span>
+				</div>
 			</div>
 		</section>
 
@@ -66,50 +72,29 @@
 			<div class="card-grid">
 
 				<article class="tech-card hud reveal">
-					<div class="card-media"><span class="card-tag">MODE 01</span><img src="images/basketball.jpg" alt="Basketball" /></div>
+					<a class="card-media" href="project_ros2car.html">
+						<span class="card-tag">ROS2 · AMR</span>
+						<img src="images/ros2_car.jpg" alt="ROS2 robot car" />
+					</a>
 					<div class="card-body">
-						<h3>Basketball <span class="mono accent" style="font-size: 0.7em;">籃球</span></h3>
-						<p>Weekly runs with friends, and a close eye on the NBA. LeBron James is the favorite — not just the skill, but the on-court leadership.</p>
+						<h3>ROS2 Robot Car</h3>
+						<p>A Jetson Orin Nano rover: ROS2 planning &amp; vision (YOLO · Gemini) up top, an STM32 driver board driving brushed DC motors below. Sims, firmware, schematics and full source inside.</p>
+						<div style="display: flex; gap: 0.6rem; flex-wrap: wrap;">
+							<a class="btn" href="project_ros2car.html">Open Build</a>
+							<a class="btn" href="https://github.com/HsunWeiTu/wes_car" target="_blank" rel="noopener">Repo</a>
+						</div>
 					</div>
 				</article>
 
 				<article class="tech-card hud reveal" style="--reveal-delay: 0.08s;">
-					<div class="card-media"><span class="card-tag">MODE 02</span><img src="images/scuba_diving.jpg" alt="Scuba diving" /></div>
-					<div class="card-body">
-						<h3>Scuba Diving <span class="mono accent" style="font-size: 0.7em;">潛水</span></h3>
-						<p>Certified in 2021, 20+ dives logged. Drifting through the underwater world with a camera, recording the quiet mechanics of marine life.</p>
+					<div class="card-media">
+						<span class="card-tag">Reserved</span>
+						<span class="glyph-placeholder" aria-hidden="true">NEXT_</span>
 					</div>
-				</article>
-
-				<article class="tech-card hud reveal" style="--reveal-delay: 0.16s;">
-					<div class="card-media"><span class="card-tag">MODE 03</span><span class="glyph-placeholder" aria-hidden="true">JAB//</span></div>
 					<div class="card-body">
-						<h3>Boxing <span class="mono accent" style="font-size: 0.7em;">拳擊</span></h3>
-						<p>Training since 2023. Physical discipline plus mental focus — every session flushes the buffers and clears the head.</p>
-					</div>
-				</article>
-
-				<article class="tech-card hud reveal">
-					<div class="card-media"><span class="card-tag">MODE 04</span><img src="images/windsurfing.jpg" alt="Windsurfing" /></div>
-					<div class="card-body">
-						<h3>Windsurfing <span class="mono accent" style="font-size: 0.7em;">風帆</span></h3>
-						<p>Years on the water, still chasing a cleaner line. Reading wind is not unlike reading sensor data — you learn to feel the signal.</p>
-					</div>
-				</article>
-
-				<article class="tech-card hud reveal" style="--reveal-delay: 0.08s;">
-					<div class="card-media"><span class="card-tag">MODE 05</span><span class="glyph-placeholder" aria-hidden="true">READ_</span></div>
-					<div class="card-body">
-						<h3>Reading <span class="mono accent" style="font-size: 0.7em;">閱讀</span></h3>
-						<p>Technology, history, fiction — wide and deliberate. Every book is a firmware update for the mind.</p>
-					</div>
-				</article>
-
-				<article class="tech-card hud reveal" style="--reveal-delay: 0.16s;">
-					<div class="card-media"><span class="card-tag">MODE 06</span><span class="glyph-placeholder" aria-hidden="true">GG_WP</span></div>
-					<div class="card-body">
-						<h3>Video Games <span class="mono accent" style="font-size: 0.7em;">遊戲</span></h3>
-						<p>FPS, RPG, MOBA — League of Legends, Valorant, GTA V, Oxygen Not Included. Strategy, challenge, and co-op with friends.</p>
+						<h3>More builds incoming</h3>
+						<p>This bay is reserved for the next project. New robots, motor drives and control experiments will dock here as they ship.</p>
+						<span class="ac-pending">Bay open</span>
 					</div>
 				</article>
 
