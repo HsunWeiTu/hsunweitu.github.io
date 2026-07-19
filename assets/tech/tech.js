@@ -513,4 +513,8 @@
 			});
 		});
 	}
+
+	/* signal that the interaction engine loaded and ran — used by the
+	   per-page failsafe to decide whether to force-reveal content */
+	window.__wesReady = true;
 })();
