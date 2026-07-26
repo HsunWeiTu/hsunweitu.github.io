@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<title>ROS2 Robot Car — Wes Tu | 杜勳威</title>
+	<title>Mecanum AGV — Wes Tu | 杜勳威</title>
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
-	<meta name="description" content="A Jetson Orin Nano + STM32 mecanum-wheel ROS2 robot car by Hsun-Wei (Wes) Tu — simulation, firmware, control stack and electronics." />
+	<meta name="description" content="A Jetson Orin Nano + STM32 mecanum-wheel AGV by Hsun-Wei (Wes) Tu — simulation, firmware, control stack and electronics." />
 	<link rel="preconnect" href="https://fonts.googleapis.com" />
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 	<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet" />
@@ -56,13 +56,13 @@
 
 		<section class="page-hero">
 			<div class="reveal">
-				<div class="page-id">LAB.01 / ROS2 Robot Car <span class="zh">ROS2 自走車</span></div>
-				<h1>A rover that thinks up top<br />and drives down below</h1>
-				<p class="lead">A ROS2 robot car built around a Jetson Orin Nano. Up top it plans, sees (YOLO · Gemini) and navigates; control commands drop to an STM32 driver board that drives brushed DC motors on mecanum wheels for full holonomic motion.</p>
+				<div class="page-id">LAB.01 / Mecanum AGV <span class="zh">全向輪 AGV</span></div>
+				<h1>A compact AGV that thinks up top<br />and drives down below</h1>
+				<p class="lead">A compact mecanum-wheel AGV built around a Jetson Orin Nano. Up top it plans, sees (YOLO · Gemini) and navigates; control commands drop to an STM32 driver board that drives brushed DC motors on mecanum wheels for full holonomic motion.</p>
 				<div class="hero-actions" style="margin-top: 1.6rem;">
-					<a class="btn btn-fill" href="https://github.com/HsunWeiTu/wes_car" target="_blank" rel="noopener">Source · GitHub</a>
 					<a class="btn" href="#architecture">System Overview</a>
 					<a class="btn" href="#firmware">Firmware &amp; Files</a>
+					<a class="btn btn-fill btn-icon" href="https://github.com/HsunWeiTu/wes_car" target="_blank" rel="noopener" aria-label="Source on GitHub" title="Source · GitHub"><span class="gh-ico" aria-hidden="true"></span></a>
 				</div>
 			</div>
 		</section>
@@ -70,7 +70,7 @@
 		<!-- ===== spec summary ===== -->
 		<section class="section" style="padding-top: 1rem;">
 			<article class="spec-card hud reveal">
-				<div class="spec-media"><img src="images/ros2_car.jpg" alt="ROS2 robot car" /></div>
+				<div class="spec-media"><img src="images/ros2_car.jpg" alt="Mecanum AGV" /></div>
 				<div class="spec-body">
 					<div class="spec-title-row">
 						<h2><span class="spec-id">LAB-01 · 系統規格</span>Platform Spec Sheet</h2>
@@ -83,7 +83,7 @@
 						<dt>MCU</dt><dd>STM32F103RCT6 on a Yahboom ROS driver board — 72 MHz · FreeRTOS · real-time motor control</dd>
 						<dt>Actuation</dt><dd>Four brushed DC motors · mecanum drive, each with a quadrature encoder</dd>
 						<dt>Feedback</dt><dd>Wheel encoders → closed-loop speed control &amp; odometry; on-board battery-voltage sensing</dd>
-						<dt>Stack</dt><dd>ROS2 · Gazebo · MuJoCo · STM32CubeMX · Keil MDK</dd>
+						<dt>Stack</dt><dd>ROS2 · Gazebo · STM32CubeMX · Keil MDK</dd>
 						<dt>Repo</dt><dd><a href="https://github.com/HsunWeiTu/wes_car" target="_blank" rel="noopener">github.com/HsunWeiTu/wes_car</a> — ROS2 workspace, protocol &amp; vision</dd>
 					</dl>
 				</div>
@@ -140,7 +140,7 @@
 					<h3>2D Lidar Scan</h3>
 					<p>Slamtec lidar driver publishing <code>/scan</code> — a 360° view for mapping and obstacle avoidance.</p>
 					<div class="ac-foot">
-						<a class="btn" href="https://github.com/HsunWeiTu/wes_car/tree/main/roscar_ws/src/sllidar_ros2" target="_blank" rel="noopener">Browse Source</a>
+						<a class="btn btn-icon" href="https://github.com/HsunWeiTu/wes_car/tree/main/roscar_ws/src/sllidar_ros2" target="_blank" rel="noopener" aria-label="Browse Source on GitHub" title="Browse Source"><span class="gh-ico" aria-hidden="true"></span></a>
 					</div>
 				</article>
 				<article class="asset-card hud">
@@ -162,7 +162,7 @@
 					<h3>Joystick / Thumb Control</h3>
 					<p>Manual teleop over ROS2 <code>/joy</code> → <code>/cmd_vel</code> for driving and data collection.</p>
 					<div class="ac-foot">
-						<a class="btn" href="https://github.com/HsunWeiTu/wes_car/tree/main/roscar_ws/src/wes_car_bring_up" target="_blank" rel="noopener">Browse Source</a>
+						<a class="btn btn-icon" href="https://github.com/HsunWeiTu/wes_car/tree/main/roscar_ws/src/wes_car_bring_up" target="_blank" rel="noopener" aria-label="Browse Source on GitHub" title="Browse Source"><span class="gh-ico" aria-hidden="true"></span></a>
 					</div>
 				</article>
 				</article>
@@ -173,25 +173,41 @@
 		<section class="section asset-block reveal">
 			<div class="asset-head">
 				<span class="ah-id">03 / Simulation</span>
-				<h2>Simulation</h2>
-				<span class="ah-zh">模擬</span>
+				<h2>Robot Simulation</h2>
+				<span class="ah-zh">機器人模擬</span>
 			</div>
 			<div class="asset-grid">
-				<article class="asset-card hud pending">
+				<article class="asset-card hud">
+					<div class="ac-top">
+						<span class="ac-type">URDF / Xacro</span>
+						<span class="ac-meta">robot description</span>
+					</div>
+					<h3>URDF / Xacro</h3>
+					<p>The robot description that defines the car's links, joints and inertials — the single model RViz, ROS2 and Gazebo all read.</p>
+					<div class="ac-foot">
+						<a class="btn" href="urdf_tutorial.html">URDF Guide</a>
+						<a class="btn btn-icon" href="https://github.com/HsunWeiTu/wes_car/tree/main/roscar_ws/src/simulation/urdf" target="_blank" rel="noopener" aria-label="View source on GitHub" title="Browse Source"><span class="gh-ico" aria-hidden="true"></span></a>
+					</div>
+				</article>
+				<article class="asset-card hud">
 					<div class="ac-top">
 						<span class="ac-type">Gazebo</span>
-						<span class="ac-pending">Pending</span>
+						<span class="ac-meta">sim world</span>
 					</div>
-					<h3>Gazebo World &amp; URDF</h3>
-					<p>Robot description (URDF/Xacro) and a Gazebo world for driving and sensor tests before hardware.</p>
+					<h3>Gazebo World</h3>
+					<p>A Gazebo world and plugins that spawn the URDF model for driving and sensor tests before touching hardware.</p>
+					<div class="ac-foot">
+						<a class="btn" href="gazebo_tutorial.html">Gazebo Guide</a>
+						<a class="btn btn-icon" href="https://github.com/HsunWeiTu/wes_car/tree/main/roscar_ws/src" target="_blank" rel="noopener" aria-label="View source on GitHub" title="Browse Source"><span class="gh-ico" aria-hidden="true"></span></a>
+					</div>
 				</article>
 				<article class="asset-card hud pending">
 					<div class="ac-top">
-						<span class="ac-type">MuJoCo</span>
-						<span class="ac-pending">Pending</span>
+						<span class="ac-type">Isaac Sim</span>
+						<span class="ac-pending">Planned</span>
 					</div>
-					<h3>MuJoCo Model</h3>
-					<p>MJCF model of the platform for contact-rich dynamics and control validation.</p>
+					<h3>NVIDIA Isaac Sim</h3>
+					<p>Photoreal Isaac Sim scenes for domain-randomised perception and reinforcement-learning training — on the roadmap.</p>
 				</article>
 			</div>
 		</section>
@@ -212,7 +228,7 @@
 					<h3>Pin &amp; Clock Config</h3>
 					<p>The STM32CubeMX project: 72 MHz clock tree, motor/encoder timers, battery ADC and UART — the full pin map lives here.</p>
 					<div class="ac-foot">
-						<a class="btn" href="https://github.com/HsunWeiTu/wes_car/blob/main/firmware/ROS_board.ioc" target="_blank" rel="noopener">View .ioc</a>
+						<a class="btn btn-icon" href="https://github.com/HsunWeiTu/wes_car/blob/main/firmware/ROS_board.ioc" target="_blank" rel="noopener" aria-label="View .ioc on GitHub" title="View .ioc"><span class="gh-ico" aria-hidden="true"></span></a>
 					</div>
 				</article>
 				<article class="asset-card hud">
@@ -223,7 +239,7 @@
 					<h3>Motor Control Firmware</h3>
 					<p>The Keil MDK project: PWM generation, quadrature encoder read, PID speed loop, buzzer/LED, and the UART protocol with ROS2.</p>
 					<div class="ac-foot">
-						<a class="btn" href="https://github.com/HsunWeiTu/wes_car/tree/main/firmware" target="_blank" rel="noopener">Browse Source</a>
+						<a class="btn btn-icon" href="https://github.com/HsunWeiTu/wes_car/tree/main/firmware" target="_blank" rel="noopener" aria-label="Browse Source on GitHub" title="Browse Source"><span class="gh-ico" aria-hidden="true"></span></a>
 					</div>
 				</article>
 			</div>
@@ -272,7 +288,7 @@
 					<h3>Hardware Interface</h3>
 					<p>Bridges ROS2 to the STM32 over UART — sending wheel commands and reading encoder / battery feedback.</p>
 					<div class="ac-foot">
-						<a class="btn" href="https://github.com/HsunWeiTu/wes_car/tree/main/roscar_ws/src/hardware" target="_blank" rel="noopener">Browse Source</a>
+						<a class="btn btn-icon" href="https://github.com/HsunWeiTu/wes_car/tree/main/roscar_ws/src/hardware" target="_blank" rel="noopener" aria-label="Browse Source on GitHub" title="Browse Source"><span class="gh-ico" aria-hidden="true"></span></a>
 					</div>
 				</article>
 				<article class="asset-card hud">
@@ -283,7 +299,7 @@
 					<h3>Base Control &amp; Odometry</h3>
 					<p>Turns <code>/cmd_vel</code> into wheel targets and encoder counts into <code>/odom</code> and the TF tree.</p>
 					<div class="ac-foot">
-						<a class="btn" href="https://github.com/HsunWeiTu/wes_car/tree/main/roscar_ws/src/control" target="_blank" rel="noopener">Browse Source</a>
+						<a class="btn btn-icon" href="https://github.com/HsunWeiTu/wes_car/tree/main/roscar_ws/src/control" target="_blank" rel="noopener" aria-label="Browse Source on GitHub" title="Browse Source"><span class="gh-ico" aria-hidden="true"></span></a>
 					</div>
 				</article>
 				<article class="asset-card hud">
@@ -294,7 +310,7 @@
 					<h3>Bringup &amp; Launch</h3>
 					<p>Launch files and params that start the whole stack — hardware, control, lidar, perception and teleop.</p>
 					<div class="ac-foot">
-						<a class="btn" href="https://github.com/HsunWeiTu/wes_car/tree/main/roscar_ws/src/wes_car_bring_up" target="_blank" rel="noopener">Browse Source</a>
+						<a class="btn btn-icon" href="https://github.com/HsunWeiTu/wes_car/tree/main/roscar_ws/src/wes_car_bring_up" target="_blank" rel="noopener" aria-label="Browse Source on GitHub" title="Browse Source"><span class="gh-ico" aria-hidden="true"></span></a>
 					</div>
 				</article>
 				<article class="asset-card hud">
@@ -305,7 +321,7 @@
 					<h3>Custom Interfaces</h3>
 					<p>The project's custom ROS2 messages and services that tie the nodes together.</p>
 					<div class="ac-foot">
-						<a class="btn" href="https://github.com/HsunWeiTu/wes_car/tree/main/roscar_ws/src/wes_car_interface" target="_blank" rel="noopener">Browse Source</a>
+						<a class="btn btn-icon" href="https://github.com/HsunWeiTu/wes_car/tree/main/roscar_ws/src/wes_car_interface" target="_blank" rel="noopener" aria-label="Browse Source on GitHub" title="Browse Source"><span class="gh-ico" aria-hidden="true"></span></a>
 					</div>
 				</article>
 				<article class="asset-card hud">
@@ -316,7 +332,7 @@
 					<h3>Communication Protocol</h3>
 					<p>The byte-level serial protocol between the Jetson and the STM32 driver board — framing, commands and feedback.</p>
 					<div class="ac-foot">
-						<a class="btn" href="https://github.com/HsunWeiTu/wes_car/blob/main/Wes%20Car%20Communication%20Protocol.xlsx" target="_blank" rel="noopener">View Spec</a>
+						<a class="btn btn-icon" href="https://github.com/HsunWeiTu/wes_car/blob/main/Wes%20Car%20Communication%20Protocol.xlsx" target="_blank" rel="noopener" aria-label="View Spec on GitHub" title="View Spec"><span class="gh-ico" aria-hidden="true"></span></a>
 					</div>
 				</article>
 			</div>
@@ -338,7 +354,7 @@
 					<h3>Object Detection</h3>
 					<p>Real-time YOLO detection on the camera feed — the robot recognizes what's around it before it moves.</p>
 					<div class="ac-foot">
-						<a class="btn" href="https://github.com/HsunWeiTu/wes_car/blob/main/test_yolo26.py" target="_blank" rel="noopener">View Code</a>
+						<a class="btn btn-icon" href="https://github.com/HsunWeiTu/wes_car/blob/main/test_yolo26.py" target="_blank" rel="noopener" aria-label="View Code on GitHub" title="View Code"><span class="gh-ico" aria-hidden="true"></span></a>
 					</div>
 				</article>
 				<article class="asset-card hud">
@@ -349,7 +365,7 @@
 					<h3>Scene Understanding</h3>
 					<p>Google Gemini as a vision-language model — turning what the camera sees into high-level understanding and commands.</p>
 					<div class="ac-foot">
-						<a class="btn" href="https://github.com/HsunWeiTu/wes_car/blob/main/test_gemini.py" target="_blank" rel="noopener">View Code</a>
+						<a class="btn btn-icon" href="https://github.com/HsunWeiTu/wes_car/blob/main/test_gemini.py" target="_blank" rel="noopener" aria-label="View Code on GitHub" title="View Code"><span class="gh-ico" aria-hidden="true"></span></a>
 					</div>
 				</article>
 				<article class="asset-card hud">
@@ -360,7 +376,7 @@
 					<h3>Perception Package</h3>
 					<p>The ROS2 perception nodes — wrapping camera detection into topics the rest of the stack can act on.</p>
 					<div class="ac-foot">
-						<a class="btn" href="https://github.com/HsunWeiTu/wes_car/tree/main/roscar_ws/src/perception" target="_blank" rel="noopener">Browse Source</a>
+						<a class="btn btn-icon" href="https://github.com/HsunWeiTu/wes_car/tree/main/roscar_ws/src/perception" target="_blank" rel="noopener" aria-label="Browse Source on GitHub" title="Browse Source"><span class="gh-ico" aria-hidden="true"></span></a>
 					</div>
 				</article>
 				<article class="asset-card hud">
@@ -371,7 +387,7 @@
 					<h3>Decision Layer</h3>
 					<p>High-level behavior — fusing perception and scene understanding into what the robot does next.</p>
 					<div class="ac-foot">
-						<a class="btn" href="https://github.com/HsunWeiTu/wes_car/tree/main/roscar_ws/src/decision" target="_blank" rel="noopener">Browse Source</a>
+						<a class="btn btn-icon" href="https://github.com/HsunWeiTu/wes_car/tree/main/roscar_ws/src/decision" target="_blank" rel="noopener" aria-label="Browse Source on GitHub" title="Browse Source"><span class="gh-ico" aria-hidden="true"></span></a>
 					</div>
 				</article>
 			</div>
@@ -393,7 +409,7 @@
 					<h3>Driver Board Schematic</h3>
 					<p>Full schematic of the STM32 ROS driver board — power, motor drivers, encoder headers and the host interface.</p>
 					<div class="ac-foot">
-						<a class="btn" href="https://github.com/HsunWeiTu/wes_car/blob/main/firmware/ERF01v3.0.pdf" target="_blank" rel="noopener">View Schematic</a>
+						<a class="btn btn-icon" href="https://github.com/HsunWeiTu/wes_car/blob/main/firmware/ERF01v3.0.pdf" target="_blank" rel="noopener" aria-label="View Schematic on GitHub" title="View Schematic"><span class="gh-ico" aria-hidden="true"></span></a>
 					</div>
 				</article>
 				<article class="asset-card hud">

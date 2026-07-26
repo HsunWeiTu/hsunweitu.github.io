@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Gazebo World — Mecanum AGV | Wes Tu</title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<meta name="description" content="A step-by-step guide to building a Gazebo world for the mecanum AGV — spawning the URDF, mecanum drive plugin, friction, sensors and launch." />
+	<link rel="preconnect" href="https://fonts.googleapis.com" />
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+	<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet" />
+	<link rel="stylesheet" href="assets/tech/tech.css" />
+</head>
+<body>
+
+	<canvas id="grid-canvas"></canvas>
+	<div class="vignette"></div>
+
+	<header class="site-header">
+		<nav class="nav-inner">
+			<a class="brand" href="index.html">
+				<span class="brand-mark" aria-hidden="true">
+					<svg viewBox="0 0 24 24" fill="none" stroke="#f2a35c" stroke-width="1.6" stroke-linecap="round">
+						<circle cx="6" cy="18" r="2.2" />
+						<path d="M7.5 16.3 L11 9.5" />
+						<circle cx="11.6" cy="8.4" r="1.8" />
+						<path d="M13 7.2 L17.5 4.8" />
+						<path d="M17.5 4.8 L20 6.8 M17.5 4.8 L19.5 2.6" stroke="#4cc8a3" />
+					</svg>
+				</span>
+				<span class="brand-text">
+					<span class="brand-name">WES.TU</span>
+					<span class="brand-sub">MECHATRONICS · 杜勳威</span>
+				</span>
+			</a>
+			<button class="nav-toggle" aria-label="Open menu"><span></span><span></span><span></span></button>
+			<ul class="nav-links">
+				<li><a href="index.html">Home</a></li>
+				<li><a href="academic_background.html">Academic</a></li>
+				<li class="nav-drop">
+					<button class="nav-drop-label">Experience <span class="caret">▼</span></button>
+					<ul class="nav-dropdown">
+						<li><a href="work_experience.html">Overview</a></li>
+						<li><a href="Techncare.html">Techncare Biomedical</a></li>
+						<li><a href="Saultech.html">Saultech Technology</a></li>
+						<li><a href="Grenergy.html">Grenergy Technology</a></li>
+					</ul>
+				</li>
+				<li class="active"><a href="projects.html">Projects</a></li>
+				<li><a href="hobbies.html">Hobbies</a></li>
+				<li><a href="get_in_touch.html">Contact</a></li>
+			</ul>
+		</nav>
+	</header>
+
+	<main>
+
+		<section class="page-hero">
+			<div class="reveal">
+				<div class="page-id">LAB.01 / Gazebo Guide <span class="zh">模擬世界教學</span></div>
+				<h1>Driving the robot<br />in a simulated world</h1>
+				<p class="lead">Once the <a href="urdf_tutorial.html">URDF</a> describes the robot, Gazebo turns it into something you can actually drive — a world with gravity, friction and sensors. This guide builds a Gazebo world for the mecanum AGV: spawning the model, wiring the mecanum-drive plugin, tuning friction and adding simulated lidar and camera.</p>
+				<div class="hero-actions" style="margin-top: 1.6rem;">
+					<a class="btn" href="project_ros2car.html">← Back to Build</a>
+					<a class="btn" href="urdf_tutorial.html">URDF Guide</a>
+					<a class="btn btn-icon" href="https://github.com/HsunWeiTu/wes_car/tree/main/roscar_ws/src" target="_blank" rel="noopener" aria-label="Source on GitHub" title="Browse Source"><span class="gh-ico" aria-hidden="true"></span></a>
+				</div>
+			</div>
+		</section>
+
+		<section class="section doc-body">
+
+			<article class="doc-step reveal">
+				<span class="doc-kicker">01 / Concept</span>
+				<h2>URDF vs. the world</h2>
+				<p>Two files play different roles. The <strong>URDF</strong> describes the robot itself — its links and joints. The <strong>world</strong> (an SDF file) describes everything around it: the ground plane, lighting, gravity and physics settings. Gazebo loads the world first, then <em>spawns</em> your URDF model into it.</p>
+				<ul>
+					<li><code>.urdf</code> / <code>.xacro</code> — the robot, from the URDF guide.</li>
+					<li><code>.world</code> / <code>.sdf</code> — the environment the robot lives in.</li>
+					<li>A launch file ties them together and starts Gazebo.</li>
+				</ul>
+			</article>
+
+			<article class="doc-step reveal">
+				<span class="doc-kicker">02 / World</span>
+				<h2>A minimal world file</h2>
+				<p>A world needs at least a physics engine, a light and a ground plane. Start from Gazebo's built-in models so you don't have to model the floor and sun yourself.</p>
+				<div class="code-block">
+					<span class="code-tag">wes_car.world</span>
+<pre>&lt;?xml version="1.0"?&gt;
+&lt;sdf version="1.9"&gt;
+  &lt;world name="wes_car_world"&gt;
+
+    &lt;physics name="1ms" type="ignored"&gt;
+      &lt;max_step_size&gt;0.001&lt;/max_step_size&gt;
+      &lt;real_time_factor&gt;1.0&lt;/real_time_factor&gt;
+    &lt;/physics&gt;
+
+    &lt;plugin filename="gz-sim-physics-system"
+            name="gz::sim::systems::Physics"/&gt;
+    &lt;plugin filename="gz-sim-sensors-system"
+            name="gz::sim::systems::Sensors"&gt;
+      &lt;render_engine&gt;ogre2&lt;/render_engine&gt;
+    &lt;/plugin&gt;
+
+    &lt;include&gt;
+      &lt;uri&gt;https://fuel.gazebosim.org/1.0/OpenRobotics/models/Sun&lt;/uri&gt;
+    &lt;/include&gt;
+    &lt;include&gt;
+      &lt;uri&gt;https://fuel.gazebosim.org/1.0/OpenRobotics/models/Ground Plane&lt;/uri&gt;
+    &lt;/include&gt;
+
+  &lt;/world&gt;
+&lt;/sdf&gt;</pre>
+				</div>
+				<p>Launching this with <code>gz sim wes_car.world</code> should give you an empty, lit room with a floor — ready for the robot.</p>
+			</article>
+
+			<article class="doc-step reveal">
+				<span class="doc-kicker">03 / Drive</span>
+				<h2>The mecanum-drive plugin</h2>
+				<p>Gazebo needs a plugin to turn <code>/cmd_vel</code> into wheel motion. For a mecanum base, the mecanum-drive system spins all four wheels independently so the robot can move sideways and rotate in place. Add this inside the robot's URDF (or as a <code>&lt;gazebo&gt;</code> block) so it travels with the model.</p>
+				<div class="code-block">
+					<span class="code-tag">gazebo plugin</span>
+<pre>&lt;gazebo&gt;
+  &lt;plugin filename="gz-sim-mecanum-drive-system"
+          name="gz::sim::systems::MecanumDrive"&gt;
+    &lt;front_left_joint&gt;wheel_fl_joint&lt;/front_left_joint&gt;
+    &lt;front_right_joint&gt;wheel_fr_joint&lt;/front_right_joint&gt;
+    &lt;back_left_joint&gt;wheel_rl_joint&lt;/back_left_joint&gt;
+    &lt;back_right_joint&gt;wheel_rr_joint&lt;/back_right_joint&gt;
+    &lt;wheel_separation&gt;0.28&lt;/wheel_separation&gt;
+    &lt;wheelbase&gt;0.24&lt;/wheelbase&gt;
+    &lt;wheel_radius&gt;0.05&lt;/wheel_radius&gt;
+    &lt;topic&gt;cmd_vel&lt;/topic&gt;
+  &lt;/plugin&gt;
+&lt;/gazebo&gt;</pre>
+				</div>
+				<p>The four joint names must match the ones from the URDF exactly. <code>wheel_separation</code> and <code>wheelbase</code> come straight from the joint origins you set earlier.</p>
+			</article>
+
+			<article class="doc-step reveal">
+				<span class="doc-kicker">04 / Physics</span>
+				<h2>Friction &amp; inertials</h2>
+				<p>A model with no friction slides like it's on ice; wrong inertials make it flip. Each wheel needs a <code>&lt;gazebo reference&gt;</code> block that sets its friction coefficients, and every link needs believable mass and inertia (set back in the URDF).</p>
+				<div class="code-block">
+					<span class="code-tag">per-wheel friction</span>
+<pre>&lt;gazebo reference="wheel_fl"&gt;
+  &lt;mu1&gt;1.0&lt;/mu1&gt;
+  &lt;mu2&gt;1.0&lt;/mu2&gt;
+  &lt;kp&gt;1000000.0&lt;/kp&gt;
+  &lt;kd&gt;100.0&lt;/kd&gt;
+&lt;/gazebo&gt;</pre>
+				</div>
+				<ul>
+					<li><code>mu1</code> / <code>mu2</code> — friction along and across the wheel; mecanum rollers usually want these tuned lower sideways.</li>
+					<li><code>kp</code> / <code>kd</code> — contact stiffness and damping; too soft and the wheels sink into the floor.</li>
+				</ul>
+			</article>
+
+			<article class="doc-step reveal">
+				<span class="doc-kicker">05 / Sensors</span>
+				<h2>Simulated lidar &amp; camera</h2>
+				<p>The same lidar and camera the real robot uses can be simulated. Attach a sensor to a link and add the matching Gazebo sensor plugin — Gazebo then publishes <code>/scan</code> and image topics just like the hardware drivers do.</p>
+				<div class="code-block">
+					<span class="code-tag">lidar sensor</span>
+<pre>&lt;gazebo reference="lidar_link"&gt;
+  &lt;sensor name="lidar" type="gpu_lidar"&gt;
+    &lt;topic&gt;scan&lt;/topic&gt;
+    &lt;update_rate&gt;10&lt;/update_rate&gt;
+    &lt;lidar&gt;
+      &lt;scan&gt;
+        &lt;horizontal&gt;
+          &lt;samples&gt;360&lt;/samples&gt;
+          &lt;min_angle&gt;-3.14159&lt;/min_angle&gt;
+          &lt;max_angle&gt;3.14159&lt;/max_angle&gt;
+        &lt;/horizontal&gt;
+      &lt;/scan&gt;
+      &lt;range&gt;
+        &lt;min&gt;0.12&lt;/min&gt;
+        &lt;max&gt;12.0&lt;/max&gt;
+      &lt;/range&gt;
+    &lt;/lidar&gt;
+  &lt;/sensor&gt;
+&lt;/gazebo&gt;</pre>
+				</div>
+				<p>Because the simulated sensor publishes the same topic names, the rest of the ROS2 stack can't tell it apart from the real one — which is exactly what makes sim useful.</p>
+			</article>
+
+			<article class="doc-step reveal">
+				<span class="doc-kicker">06 / Launch</span>
+				<h2>Spawn &amp; bridge to ROS2</h2>
+				<p>Finally, tie it together: start the world, spawn the URDF, and bridge Gazebo topics to ROS2 with <code>ros_gz_bridge</code> so <code>/cmd_vel</code> and <code>/scan</code> flow both ways.</p>
+				<div class="code-block">
+					<span class="code-tag">terminal</span>
+<pre># start Gazebo with the world
+gz sim wes_car.world
+
+# spawn the robot from its URDF
+ros2 run ros_gz_sim create -topic robot_description -name wes_car
+
+# bridge cmd_vel and scan between ROS2 and Gazebo
+ros2 run ros_gz_bridge parameter_bridge \
+  /cmd_vel@geometry_msgs/msg/Twist@gz.msgs.Twist \
+  /scan@sensor_msgs/msg/LaserScan@gz.msgs.LaserScan
+
+# or launch the whole sim in one shot
+ros2 launch wes_car_bringup sim.launch.py</pre>
+				</div>
+				<p>Drive it with a teleop node or a joystick publishing to <code>/cmd_vel</code>. Once the car moves in Gazebo and the lidar paints obstacles, the simulation matches the real robot closely enough to test navigation before any hardware is powered on.</p>
+			</article>
+
+			<div class="reveal" style="margin-top: 2rem; display: flex; gap: 0.6rem; flex-wrap: wrap;">
+				<a class="btn" href="project_ros2car.html">← Back to Build</a>
+				<a class="btn" href="urdf_tutorial.html">URDF Guide</a>
+				<a class="btn btn-icon" href="https://github.com/HsunWeiTu/wes_car/tree/main/roscar_ws/src" target="_blank" rel="noopener" aria-label="Source on GitHub" title="Browse Source"><span class="gh-ico" aria-hidden="true"></span></a>
+			</div>
+
+		</section>
+
+	</main>
+
+	<footer class="site-footer">
+		<div class="footer-inner">
+			<span class="footer-sig">
+				<svg viewBox="0 0 120 300" fill="none" aria-hidden="true">
+					<path d="M58 20 C74 15 87 26 90 46 C96 74 99 106 97 140 C95 175 89 202 79 227 C72 245 67 268 60 285 C57 292 52 290 51 279 C48 250 46 220 40 190 C33 160 21 150 22 122 C23 98 24 74 32 58 C39 42 46 28 58 20 Z" stroke="#4cc8a3" stroke-width="7" />
+				</svg>
+				DESIGNED &amp; BUILT IN TAIWAN
+			</span>
+			<ul class="social-row">
+				<li><a href="https://www.linkedin.com/in/勳威-杜-a4b073119" aria-label="LinkedIn" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.36V9h3.41v1.56h.05c.47-.9 1.63-1.85 3.36-1.85 3.6 0 4.27 2.37 4.27 5.45v6.29zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.12 20.45H3.56V9h3.56v11.45z"/></svg></a></li>
+				<li><a href="https://www.facebook.com/profile.php?id=100002734296589&amp;locale=zh_TW" aria-label="Facebook" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13.5 21v-8.25h2.77l.41-3.22H13.5V7.47c0-.93.26-1.57 1.6-1.57h1.7V3.02c-.3-.04-1.3-.13-2.48-.13-2.45 0-4.13 1.5-4.13 4.24v2.37H7.5v3.22h2.69V21h3.31z"/></svg></a></li>
+				<li><a href="https://www.instagram.com/hsun_wei_tu/" aria-label="Instagram" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.16c3.2 0 3.58.01 4.85.07 3.25.15 4.77 1.69 4.92 4.92.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.15 3.23-1.66 4.77-4.92 4.92-1.27.06-1.65.07-4.85.07s-3.58-.01-4.85-.07c-3.26-.15-4.77-1.7-4.92-4.92-.06-1.27-.07-1.65-.07-4.85s.01-3.58.07-4.85C2.38 3.92 3.9 2.38 7.15 2.23 8.42 2.17 8.8 2.16 12 2.16zm0 3.68a6.16 6.16 0 1 0 0 12.32 6.16 6.16 0 0 0 0-12.32zm0 10.16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.41-11.85a1.44 1.44 0 1 0 0 2.88 1.44 1.44 0 0 0 0-2.88z"/></svg></a></li>
+				<li><a href="https://line.me/ti/p/2c_H8ZEUiS" aria-label="Line" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2C6.48 2 2 5.64 2 10.13c0 4.03 3.58 7.4 8.41 8.04.33.07.77.22.89.5.1.26.07.66.03.92l-.14.86c-.04.26-.2 1.01.88.55 1.09-.46 5.87-3.45 8.01-5.91C21.55 13.42 22 11.85 22 10.13 22 5.64 17.52 2 12 2z"/></svg></a></li>
+			</ul>
+			<span class="copyright">© 2026 HSUN-WEI (WES) TU · 杜勳威</span>
+		</div>
+	</footer>
+
+	<script src="assets/tech/tech.js"></script>
+	<script>if(!window.__wesReady){document.querySelectorAll('.reveal,.cap-item').forEach(function(e){e.classList.add('visible');});}</script>
+	<noscript><style>.reveal,.cap-item{opacity:1!important;transform:none!important;}</style></noscript>
+</body>
+</html>

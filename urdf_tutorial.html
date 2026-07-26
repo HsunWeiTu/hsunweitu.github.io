@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Writing a URDF — Mecanum AGV | Wes Tu</title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<meta name="description" content="A walkthrough of the real wes_car.urdf.xacro for the mecanum AGV — dimension properties, base_link, the mecanum-wheel macro, sensors and gz-sim systems." />
+	<link rel="preconnect" href="https://fonts.googleapis.com" />
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+	<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet" />
+	<link rel="stylesheet" href="assets/tech/tech.css" />
+</head>
+<body>
+
+	<canvas id="grid-canvas"></canvas>
+	<div class="vignette"></div>
+
+	<header class="site-header">
+		<nav class="nav-inner">
+			<a class="brand" href="index.html">
+				<span class="brand-mark" aria-hidden="true">
+					<svg viewBox="0 0 24 24" fill="none" stroke="#f2a35c" stroke-width="1.6" stroke-linecap="round">
+						<circle cx="6" cy="18" r="2.2" />
+						<path d="M7.5 16.3 L11 9.5" />
+						<circle cx="11.6" cy="8.4" r="1.8" />
+						<path d="M13 7.2 L17.5 4.8" />
+						<path d="M17.5 4.8 L20 6.8 M17.5 4.8 L19.5 2.6" stroke="#4cc8a3" />
+					</svg>
+				</span>
+				<span class="brand-text">
+					<span class="brand-name">WES.TU</span>
+					<span class="brand-sub">MECHATRONICS · 杜勳威</span>
+				</span>
+			</a>
+			<button class="nav-toggle" aria-label="Open menu"><span></span><span></span><span></span></button>
+			<ul class="nav-links">
+				<li><a href="index.html">Home</a></li>
+				<li><a href="academic_background.html">Academic</a></li>
+				<li class="nav-drop">
+					<button class="nav-drop-label">Experience <span class="caret">▼</span></button>
+					<ul class="nav-dropdown">
+						<li><a href="work_experience.html">Overview</a></li>
+						<li><a href="Techncare.html">Techncare Biomedical</a></li>
+						<li><a href="Saultech.html">Saultech Technology</a></li>
+						<li><a href="Grenergy.html">Grenergy Technology</a></li>
+					</ul>
+				</li>
+				<li class="active"><a href="projects.html">Projects</a></li>
+				<li><a href="hobbies.html">Hobbies</a></li>
+				<li><a href="get_in_touch.html">Contact</a></li>
+			</ul>
+		</nav>
+	</header>
+
+	<main>
+
+		<section class="page-hero">
+			<div class="reveal">
+				<div class="page-id">LAB.01 / URDF Guide <span class="zh">機器人描述教學</span></div>
+				<h1>The Mecanum AGV,<br />described in URDF</h1>
+				<p class="lead">New to URDF? This guide starts with the fundamentals — what links and joints are, and how a description fits together — then builds the real <code>wes_car.urdf.xacro</code> for the AGV: a Yahboom ROSMASTER M1 mecanum base with a lidar and depth camera on the Gazebo Sim (gz-sim) path. Driving it in a world is covered in the <a href="gazebo_tutorial.html">Gazebo guide</a>.</p>
+				<div class="hero-actions" style="margin-top: 1.6rem;">
+					<a class="btn" href="project_ros2car.html">← Back to Build</a>
+					<a class="btn btn-icon" href="https://github.com/HsunWeiTu/wes_car/tree/main/roscar_ws/src/simulation/urdf" target="_blank" rel="noopener" aria-label="Source on GitHub" title="Browse Source"><span class="gh-ico" aria-hidden="true"></span></a>
+				</div>
+			</div>
+		</section>
+
+		<section class="section doc-body">
+
+			<div class="doc-part reveal" style="border-top: none; padding-top: 0;">
+				<span class="dp-kicker">Part 1 · Fundamentals</span>
+				<h2>How a URDF is written</h2>
+				<p>Before the real robot, the basics: what a description is made of and the rules that hold it together. If you already know URDF, skip to Part 2.</p>
+			</div>
+
+			<article class="doc-step reveal">
+				<span class="doc-kicker">01 / Links</span>
+				<h2>Links — the rigid parts</h2>
+				<p>A URDF describes a robot as a set of <strong>links</strong> — rigid bodies like the chassis, a wheel, or a sensor housing — plus the connections between them. Each link can carry three blocks:</p>
+				<ul>
+					<li><code>visual</code> — the shape you see (box, cylinder, sphere or a mesh) and its colour.</li>
+					<li><code>collision</code> — a usually simpler shape the physics engine uses for contact.</li>
+					<li><code>inertial</code> — mass and the inertia matrix, so physics knows how it moves.</li>
+				</ul>
+				<div class="code-block">
+					<span class="code-tag">a single link</span>
+<pre>&lt;link name="base_link"&gt;
+  &lt;visual&gt;
+    &lt;geometry&gt;&lt;box size="0.3 0.2 0.1"/&gt;&lt;/geometry&gt;
+    &lt;material name="grey"&gt;&lt;color rgba="0.5 0.5 0.5 1"/&gt;&lt;/material&gt;
+  &lt;/visual&gt;
+  &lt;collision&gt;
+    &lt;geometry&gt;&lt;box size="0.3 0.2 0.1"/&gt;&lt;/geometry&gt;
+  &lt;/collision&gt;
+  &lt;inertial&gt;
+    &lt;mass value="1.0"/&gt;
+    &lt;inertia ixx="0.01" ixy="0" ixz="0" iyy="0.01" iyz="0" izz="0.01"/&gt;
+  &lt;/inertial&gt;
+&lt;/link&gt;</pre>
+				</div>
+				<p>On its own a link just floats in space — it has no idea where it belongs until a joint attaches it to something.</p>
+			</article>
+
+			<article class="doc-step reveal">
+				<span class="doc-kicker">02 / Joints</span>
+				<h2>Joints — parent &amp; child</h2>
+				<p>A <strong>joint</strong> connects exactly two links: a <strong>parent</strong> and a <strong>child</strong>. It says where the child sits relative to the parent and how it is allowed to move. Chain these parent→child relationships and the robot becomes a single <strong>tree</strong>: one root link at the top, every other link hanging below it, and no loops.</p>
+				<div class="doc-diagram">
+					<svg viewBox="0 0 640 200" role="img" aria-label="A joint connects a parent link to a child link, forming a tree">
+						<defs>
+							<marker id="ah" markerWidth="9" markerHeight="9" refX="6" refY="3" orient="auto"><path d="M0 0 L6 3 L0 6 Z" fill="#4cc8a3"/></marker>
+						</defs>
+						<text x="320" y="28" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="13" letter-spacing="2" fill="#97948a">PARENT → JOINT → CHILD</text>
+						<rect x="24" y="60" width="168" height="76" rx="6" fill="#14161b" stroke="#f2a35c" stroke-width="1.5"/>
+						<text x="108" y="96" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="15" fill="#ffc08a">base_link</text>
+						<text x="108" y="117" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="11" fill="#97948a">parent link</text>
+						<rect x="250" y="70" width="140" height="56" rx="6" fill="#14161b" stroke="#4cc8a3" stroke-width="1.5"/>
+						<text x="320" y="95" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="14" fill="#4cc8a3">joint</text>
+						<text x="320" y="113" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="10" fill="#97948a">type · origin · axis</text>
+						<rect x="448" y="60" width="168" height="76" rx="6" fill="#14161b" stroke="#f2a35c" stroke-width="1.5"/>
+						<text x="532" y="96" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="15" fill="#ffc08a">wheel_link</text>
+						<text x="532" y="117" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="11" fill="#97948a">child link</text>
+						<line x1="192" y1="98" x2="244" y2="98" stroke="#4cc8a3" stroke-width="1.5" marker-end="url(#ah)"/>
+						<line x1="390" y1="98" x2="442" y2="98" stroke="#4cc8a3" stroke-width="1.5" marker-end="url(#ah)"/>
+						<text x="320" y="178" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="11" fill="#97948a">one root · every link reaches it through joints · no loops</text>
+					</svg>
+				</div>
+				<p>The joint's <code>origin</code> places the child relative to the parent; <code>axis</code> sets the direction it turns or slides. The <strong>type</strong> decides the motion:</p>
+				<ul>
+					<li><code>fixed</code> — no movement; rigidly attached (sensors, mounts).</li>
+					<li><code>continuous</code> — rotates without limit (wheels).</li>
+					<li><code>revolute</code> — rotates within limits (an arm hinge).</li>
+					<li><code>prismatic</code> — slides in a straight line.</li>
+				</ul>
+				<div class="code-block">
+					<span class="code-tag">a joint</span>
+<pre>&lt;joint name="wheel_joint" type="continuous"&gt;
+  &lt;parent link="base_link"/&gt;
+  &lt;child  link="wheel_link"/&gt;
+  &lt;origin xyz="0.1 0.15 0" rpy="0 0 0"/&gt;
+  &lt;axis   xyz="0 1 0"/&gt;
+&lt;/joint&gt;</pre>
+				</div>
+			</article>
+
+			<article class="doc-step reveal">
+				<span class="doc-kicker">03 / Assemble</span>
+				<h2>A complete URDF</h2>
+				<p>Put a few links and joints inside one <code>&lt;robot&gt;</code> element and you have a valid URDF. Every link must have a path back to the root through joints — a link with no joint is “floating” and won't appear. Here's a whole (tiny) two-wheel robot:</p>
+				<div class="code-block">
+					<span class="code-tag">mini_bot.urdf</span>
+<pre>&lt;?xml version="1.0"?&gt;
+&lt;robot name="mini_bot"&gt;
+
+  &lt;link name="base_link"&gt;   ...   &lt;/link&gt;
+  &lt;link name="left_wheel"&gt;  ...   &lt;/link&gt;
+  &lt;link name="right_wheel"&gt; ...   &lt;/link&gt;
+
+  &lt;joint name="left_wheel_joint" type="continuous"&gt;
+    &lt;parent link="base_link"/&gt;
+    &lt;child  link="left_wheel"/&gt;
+    &lt;origin xyz="0 0.15 0"/&gt;
+    &lt;axis   xyz="0 1 0"/&gt;
+  &lt;/joint&gt;
+
+  &lt;joint name="right_wheel_joint" type="continuous"&gt;
+    &lt;parent link="base_link"/&gt;
+    &lt;child  link="right_wheel"/&gt;
+    &lt;origin xyz="0 -0.15 0"/&gt;
+    &lt;axis   xyz="0 1 0"/&gt;
+  &lt;/joint&gt;
+
+&lt;/robot&gt;</pre>
+				</div>
+				<p>Run <code>check_urdf</code> on it and you'd see <code>base_link</code> as the root with two wheels attached — a complete, loadable robot.</p>
+			</article>
+
+			<article class="doc-step reveal">
+				<span class="doc-kicker">04 / Xacro</span>
+				<h2>Xacro — URDF without copy-paste</h2>
+				<p>Plain URDF gets repetitive fast — two wheels already duplicate a whole block, four is worse. <strong>Xacro</strong> (XML Macros) is URDF with three extras: <em>properties</em> (named constants), <em>math</em> inside <code>${...}</code>, and <em>macros</em> (reusable blocks with parameters). It expands back into ordinary URDF before use.</p>
+				<div class="code-block">
+					<span class="code-tag">mini_bot.xacro</span>
+<pre>&lt;robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="mini_bot"&gt;
+
+  &lt;xacro:property name="wheel_r" value="0.05"/&gt;
+
+  &lt;xacro:macro name="wheel" params="name y"&gt;
+    &lt;link name="${name}"&gt; ... &lt;/link&gt;
+    &lt;joint name="${name}_joint" type="continuous"&gt;
+      &lt;parent link="base_link"/&gt;
+      &lt;child  link="${name}"/&gt;
+      &lt;origin xyz="0 ${y} 0"/&gt;
+      &lt;axis   xyz="0 1 0"/&gt;
+    &lt;/joint&gt;
+  &lt;/xacro:macro&gt;
+
+  &lt;xacro:wheel name="left_wheel"  y="0.15"/&gt;
+  &lt;xacro:wheel name="right_wheel" y="-0.15"/&gt;
+
+&lt;/robot&gt;</pre>
+				</div>
+				<p>Define the wheel once, call it per side. That's exactly how the Wes Car below builds four mecanum wheels from a single macro — so with the fundamentals in place, let's read the real file.</p>
+			</article>
+
+			<div class="doc-part reveal">
+				<span class="dp-kicker">Part 2 · The Wes Car</span>
+				<h2>Building the mecanum AGV</h2>
+				<p>Everything below is the actual <code>wes_car.urdf.xacro</code> from the repo — a Yahboom ROSMASTER M1 mecanum base. Same ideas as above, applied for real.</p>
+			</div>
+
+			<article class="doc-step reveal">
+				<span class="doc-kicker">05 / Frame tree</span>
+				<h2>The frame tree</h2>
+				<p>A URDF describes a robot as a tree of <strong>links</strong> (rigid bodies) joined by <strong>joints</strong>. This AGV is one Xacro file with a single root, <code>base_footprint</code> (the Nav2 convention — the body's shadow on the floor); everything else hangs off <code>base_link</code>.</p>
+				<div class="code-block">
+					<span class="code-tag">frame tree</span>
+<pre>base_footprint              # root — ground projection
+└─ base_link                # chassis (ROSMASTER M1 mesh)
+   ├─ wheel_lf_link         # ┐ four mecanum wheels,
+   ├─ wheel_rf_link         # │ continuous joints
+   ├─ wheel_lb_link         # │
+   ├─ wheel_rb_link         # ┘
+   ├─ lidar_link            # SLAMTEC RPLIDAR C1 → /scan
+   └─ camera_link           # Nuwa-HP60C depth camera
+      └─ camera_optical_link # ROS optical frame</pre>
+				</div>
+				<p>The whole file is <strong>Xacro</strong> (XML macros), so it opens with the namespaced <code>&lt;robot&gt;</code> tag and leans on properties and a macro to avoid repeating the four wheels.</p>
+			</article>
+
+			<article class="doc-step reveal">
+				<span class="doc-kicker">06 / Parameters</span>
+				<h2>Dimensions as properties</h2>
+				<p>Every real dimension lives in one place as an <code>&lt;xacro:property&gt;</code>, taken from the official SolidWorks measurements. Later blocks reference them with <code>${...}</code>, so tuning the robot means editing one number instead of hunting through the file.</p>
+				<div class="code-block">
+					<span class="code-tag">wes_car.urdf.xacro</span>
+<pre>&lt;robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="wes_car"&gt;
+
+  &lt;xacro:property name="wheel_radius"   value="0.034"/&gt;   &lt;!-- contact radius --&gt;
+  &lt;xacro:property name="wheel_width"    value="0.037"/&gt;
+  &lt;xacro:property name="wheel_mass"     value="0.102"/&gt;
+  &lt;xacro:property name="front_x"        value="0.08"/&gt;    &lt;!-- front axle vs. centre --&gt;
+  &lt;xacro:property name="rear_x"         value="-0.11"/&gt;   &lt;!-- rear axle vs. centre --&gt;
+  &lt;xacro:property name="half_track"     value="0.08475"/&gt; &lt;!-- half wheel track (y) --&gt;
+  &lt;xacro:property name="base_mass"      value="1.116"/&gt;
+  &lt;xacro:property name="base_z"         value="0.065"/&gt;   &lt;!-- base_link height off ground --&gt;
+
+  &lt;xacro:property name="lidar_offset_x"  value="0.010"/&gt;
+  &lt;xacro:property name="lidar_offset_z"  value="0.151"/&gt;
+  &lt;xacro:property name="camera_offset_x" value="0.096"/&gt;
+  &lt;xacro:property name="camera_offset_z" value="0.084"/&gt;
+
+  &lt;material name="grey"&gt;&lt;color rgba="0.5 0.5 0.5 1"/&gt;&lt;/material&gt;
+  &lt;material name="black"&gt;&lt;color rgba="0.1 0.1 0.1 1"/&gt;&lt;/material&gt;
+  &lt;material name="blue"&gt;&lt;color rgba="0.2 0.4 0.8 1"/&gt;&lt;/material&gt;</pre>
+				</div>
+				<p>Note the asymmetric <code>front_x</code> / <code>rear_x</code> — the chassis centre isn't the geometric centre, so the axles sit at different distances fore and aft.</p>
+			</article>
+
+			<article class="doc-step reveal">
+				<span class="doc-kicker">07 / Base</span>
+				<h2>base_footprint &amp; base_link</h2>
+				<p>The root is an empty <code>base_footprint</code> link; a fixed joint lifts the chassis to <code>base_z</code> above it. The chassis uses a lightweight <code>.stl</code> mesh for looks, a simple box for collision (far cheaper than the mesh), and the official mass and inertia.</p>
+				<div class="code-block">
+					<span class="code-tag">base</span>
+<pre>&lt;link name="base_footprint"/&gt;
+
+&lt;joint name="base_joint" type="fixed"&gt;
+  &lt;parent link="base_footprint"/&gt;
+  &lt;child  link="base_link"/&gt;
+  &lt;origin xyz="0 0 ${base_z}" rpy="0 0 0"/&gt;
+&lt;/joint&gt;
+
+&lt;link name="base_link"&gt;
+  &lt;visual&gt;
+    &lt;origin xyz="-0.139423 -0.075781 -0.0439" rpy="0 0 0"/&gt;
+    &lt;geometry&gt;
+      &lt;mesh filename="package://simulation/meshes/rosmaster_m1_lite.stl"
+            scale="0.001 0.001 0.001"/&gt;
+    &lt;/geometry&gt;
+    &lt;material name="grey"/&gt;
+  &lt;/visual&gt;
+  &lt;collision&gt;                       &lt;!-- simplified box, not the 63M-vertex mesh --&gt;
+    &lt;origin xyz="0 0 0.03" rpy="0 0 0"/&gt;
+    &lt;geometry&gt;&lt;box size="0.28 0.2 0.12"/&gt;&lt;/geometry&gt;
+  &lt;/collision&gt;
+  &lt;inertial&gt;
+    &lt;mass value="${base_mass}"/&gt;
+    &lt;inertia ixx="0.00183" ixy="0" ixz="0" iyy="0.00349" iyz="0" izz="0.00473"/&gt;
+  &lt;/inertial&gt;
+&lt;/link&gt;</pre>
+				</div>
+				<p>Keeping visual and collision geometry separate is a common trick: a pretty mesh you can see, a crude box the physics engine can solve fast.</p>
+			</article>
+
+			<article class="doc-step reveal">
+				<span class="doc-kicker">08 / Wheels</span>
+				<h2>The mecanum-wheel macro</h2>
+				<p>All four wheels come from one <code>&lt;xacro:macro&gt;</code>. Two details make mecanum motion actually work in gz-sim: the collision is a <strong>sphere</strong> (a cylinder makes the solver fail), and each wheel gets an <strong>anisotropic friction</strong> direction <code>fdir1</code> at ±45°, matching the physical rollers.</p>
+				<div class="code-block">
+					<span class="code-tag">mecanum_wheel macro</span>
+<pre>&lt;xacro:macro name="mecanum_wheel" params="prefix x reflect_y fdir"&gt;
+  &lt;link name="wheel_${prefix}_link"&gt;
+    &lt;visual&gt;
+      &lt;origin xyz="0 0 0" rpy="${pi/2} 0 0"/&gt;
+      &lt;geometry&gt;&lt;cylinder radius="${wheel_radius}" length="${wheel_width}"/&gt;&lt;/geometry&gt;
+      &lt;material name="black"/&gt;
+    &lt;/visual&gt;
+    &lt;collision&gt;                       &lt;!-- sphere: key to gz-sim MecanumDrive --&gt;
+      &lt;geometry&gt;&lt;sphere radius="${wheel_radius}"/&gt;&lt;/geometry&gt;
+    &lt;/collision&gt;
+    &lt;inertial&gt;
+      &lt;mass value="${wheel_mass}"/&gt;
+      &lt;inertia ixx="4.6e-05" ixy="0" ixz="0" iyy="7.5e-05" iyz="0" izz="4.6e-05"/&gt;
+    &lt;/inertial&gt;
+  &lt;/link&gt;
+
+  &lt;joint name="wheel_${prefix}_joint" type="continuous"&gt;
+    &lt;parent link="base_link"/&gt;
+    &lt;child  link="wheel_${prefix}_link"/&gt;
+    &lt;origin xyz="${x} ${reflect_y * half_track} ${wheel_radius - base_z}" rpy="0 0 0"/&gt;
+    &lt;axis xyz="0 1 0"/&gt;
+  &lt;/joint&gt;
+
+  &lt;gazebo reference="wheel_${prefix}_link"&gt;   &lt;!-- roller friction --&gt;
+    &lt;mu1&gt;1.0&lt;/mu1&gt; &lt;mu2&gt;0.0&lt;/mu2&gt; &lt;fdir1&gt;${fdir}&lt;/fdir1&gt;
+  &lt;/gazebo&gt;
+&lt;/xacro:macro&gt;
+
+&lt;!-- X-pattern rollers: LF/RB one diagonal, RF/LB the other --&gt;
+&lt;xacro:mecanum_wheel prefix="lf" x="${front_x}" reflect_y="1"  fdir="0.7071 -0.7071 0"/&gt;
+&lt;xacro:mecanum_wheel prefix="rf" x="${front_x}" reflect_y="-1" fdir="0.7071  0.7071 0"/&gt;
+&lt;xacro:mecanum_wheel prefix="lb" x="${rear_x}"  reflect_y="1"  fdir="0.7071  0.7071 0"/&gt;
+&lt;xacro:mecanum_wheel prefix="rb" x="${rear_x}"  reflect_y="-1" fdir="0.7071 -0.7071 0"/&gt;</pre>
+				</div>
+				<p>The <code>fdir1</code> vector must be expressed in the body frame; because URDF→SDF conversion strips that attribute, the real project re-injects it in <code>sim.launch.py</code> after the SDF is built. The spin axis is <code>0 1 0</code> (the y-axis), and <code>reflect_y</code> mirrors left/right.</p>
+			</article>
+
+			<article class="doc-step reveal">
+				<span class="doc-kicker">09 / Sensors</span>
+				<h2>Lidar &amp; depth camera</h2>
+				<p>Two sensors hang off <code>base_link</code> with fixed joints, placed by the offset properties. The camera adds a second <code>camera_optical_link</code> rotated into the ROS optical convention (z-forward, x-right, y-down) — image and point-cloud topics use that frame.</p>
+				<div class="code-block">
+					<span class="code-tag">sensors</span>
+<pre>&lt;!-- SLAMTEC RPLIDAR C1 --&gt;
+&lt;link name="lidar_link"&gt;
+  &lt;visual&gt;&lt;geometry&gt;&lt;cylinder radius="0.0278" length="0.0413"/&gt;&lt;/geometry&gt;&lt;material name="black"/&gt;&lt;/visual&gt;
+  &lt;collision&gt;&lt;geometry&gt;&lt;cylinder radius="0.0278" length="0.0413"/&gt;&lt;/geometry&gt;&lt;/collision&gt;
+  &lt;inertial&gt;&lt;mass value="0.11"/&gt;
+    &lt;inertia ixx="0.0001" ixy="0" ixz="0" iyy="0.0001" iyz="0" izz="0.0001"/&gt;&lt;/inertial&gt;
+&lt;/link&gt;
+&lt;joint name="lidar_joint" type="fixed"&gt;
+  &lt;parent link="base_link"/&gt;
+  &lt;child  link="lidar_link"/&gt;
+  &lt;origin xyz="${lidar_offset_x} 0 ${lidar_offset_z}" rpy="0 0 0"/&gt;
+&lt;/joint&gt;
+
+&lt;!-- Nuwa-HP60C depth camera --&gt;
+&lt;link name="camera_link"&gt;
+  &lt;visual&gt;&lt;geometry&gt;&lt;box size="0.025 0.09 0.025"/&gt;&lt;/geometry&gt;&lt;material name="blue"/&gt;&lt;/visual&gt;
+  &lt;collision&gt;&lt;geometry&gt;&lt;box size="0.025 0.09 0.025"/&gt;&lt;/geometry&gt;&lt;/collision&gt;
+  &lt;inertial&gt;&lt;mass value="0.1"/&gt;
+    &lt;inertia ixx="0.0001" ixy="0" ixz="0" iyy="0.0001" iyz="0" izz="0.0001"/&gt;&lt;/inertial&gt;
+&lt;/link&gt;
+&lt;joint name="camera_joint" type="fixed"&gt;
+  &lt;parent link="base_link"/&gt;
+  &lt;child  link="camera_link"/&gt;
+  &lt;origin xyz="${camera_offset_x} 0 ${camera_offset_z}" rpy="0 0 0"/&gt;
+&lt;/joint&gt;
+
+&lt;!-- optical frame: ROS convention z-forward, x-right, y-down --&gt;
+&lt;link name="camera_optical_link"/&gt;
+&lt;joint name="camera_optical_joint" type="fixed"&gt;
+  &lt;parent link="camera_link"/&gt;
+  &lt;child  link="camera_optical_link"/&gt;
+  &lt;origin xyz="0 0 0" rpy="${-pi/2} 0 ${-pi/2}"/&gt;
+&lt;/joint&gt;</pre>
+				</div>
+			</article>
+
+			<article class="doc-step reveal">
+				<span class="doc-kicker">10 / Simulation</span>
+				<h2>Embedded gz-sim systems</h2>
+				<p>The same file carries the Gazebo Sim plugins, so the model drives itself once spawned. <code>MecanumDrive</code> subscribes to <code>cmd_vel</code> (a Twist with <code>linear.y</code> for strafing) and spins the four wheels; separate <code>OdometryPublisher</code> and <code>JointStatePublisher</code> systems put out odometry and wheel TF. Wiring the world, bridge and sensors is covered in the <a href="gazebo_tutorial.html">Gazebo guide</a>.</p>
+				<div class="code-block">
+					<span class="code-tag">MecanumDrive system</span>
+<pre>&lt;gazebo&gt;
+  &lt;plugin filename="ignition-gazebo-mecanum-drive-system"
+          name="ignition::gazebo::systems::MecanumDrive"&gt;
+    &lt;front_left_joint&gt;wheel_lf_joint&lt;/front_left_joint&gt;
+    &lt;front_right_joint&gt;wheel_rf_joint&lt;/front_right_joint&gt;
+    &lt;back_left_joint&gt;wheel_lb_joint&lt;/back_left_joint&gt;
+    &lt;back_right_joint&gt;wheel_rb_joint&lt;/back_right_joint&gt;
+    &lt;wheel_separation&gt;${2 * half_track}&lt;/wheel_separation&gt;
+    &lt;wheelbase&gt;${front_x - rear_x}&lt;/wheelbase&gt;
+    &lt;wheel_radius&gt;${wheel_radius}&lt;/wheel_radius&gt;
+    &lt;topic&gt;cmd_vel&lt;/topic&gt;
+  &lt;/plugin&gt;
+&lt;/gazebo&gt;</pre>
+				</div>
+			</article>
+
+			<article class="doc-step reveal">
+				<span class="doc-kicker">11 / Build</span>
+				<h2>Expand, check &amp; launch</h2>
+				<p>Xacro isn't valid URDF until expanded. Expand it, validate the tree, then launch the real project:</p>
+				<div class="code-block">
+					<span class="code-tag">terminal</span>
+<pre># expand the xacro and validate the tree
+xacro wes_car.urdf.xacro &gt; /tmp/wes_car.urdf
+check_urdf /tmp/wes_car.urdf
+
+# publish robot_description + robot_state_publisher, then spawn into gz-sim
+ros2 launch simulation sim.launch.py</pre>
+				</div>
+				<p><code>check_urdf</code> prints the link hierarchy so you can confirm <code>base_footprint</code> is the root and all four wheels plus both sensors are attached. From here, take it into the <a href="gazebo_tutorial.html">Gazebo world</a> to drive it.</p>
+			</article>
+
+			<div class="reveal" style="margin-top: 2rem; display: flex; gap: 0.6rem; flex-wrap: wrap;">
+				<a class="btn" href="project_ros2car.html">← Back to Build</a>
+				<a class="btn" href="gazebo_tutorial.html">Gazebo Guide →</a>
+				<a class="btn btn-icon" href="https://github.com/HsunWeiTu/wes_car/tree/main/roscar_ws/src/simulation/urdf" target="_blank" rel="noopener" aria-label="Source on GitHub" title="Browse Source"><span class="gh-ico" aria-hidden="true"></span></a>
+			</div>
+
+		</section>
+
+	</main>
+
+	<footer class="site-footer">
+		<div class="footer-inner">
+			<span class="footer-sig">
+				<svg viewBox="0 0 120 300" fill="none" aria-hidden="true">
+					<path d="M58 20 C74 15 87 26 90 46 C96 74 99 106 97 140 C95 175 89 202 79 227 C72 245 67 268 60 285 C57 292 52 290 51 279 C48 250 46 220 40 190 C33 160 21 150 22 122 C23 98 24 74 32 58 C39 42 46 28 58 20 Z" stroke="#4cc8a3" stroke-width="7" />
+				</svg>
+				DESIGNED &amp; BUILT IN TAIWAN
+			</span>
+			<ul class="social-row">
+				<li><a href="https://www.linkedin.com/in/勳威-杜-a4b073119" aria-label="LinkedIn" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.36V9h3.41v1.56h.05c.47-.9 1.63-1.85 3.36-1.85 3.6 0 4.27 2.37 4.27 5.45v6.29zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.12 20.45H3.56V9h3.56v11.45z"/></svg></a></li>
+				<li><a href="https://www.facebook.com/profile.php?id=100002734296589&amp;locale=zh_TW" aria-label="Facebook" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13.5 21v-8.25h2.77l.41-3.22H13.5V7.47c0-.93.26-1.57 1.6-1.57h1.7V3.02c-.3-.04-1.3-.13-2.48-.13-2.45 0-4.13 1.5-4.13 4.24v2.37H7.5v3.22h2.69V21h3.31z"/></svg></a></li>
+				<li><a href="https://www.instagram.com/hsun_wei_tu/" aria-label="Instagram" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.16c3.2 0 3.58.01 4.85.07 3.25.15 4.77 1.69 4.92 4.92.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.15 3.23-1.66 4.77-4.92 4.92-1.27.06-1.65.07-4.85.07s-3.58-.01-4.85-.07c-3.26-.15-4.77-1.7-4.92-4.92-.06-1.27-.07-1.65-.07-4.85s.01-3.58.07-4.85C2.38 3.92 3.9 2.38 7.15 2.23 8.42 2.17 8.8 2.16 12 2.16zm0 3.68a6.16 6.16 0 1 0 0 12.32 6.16 6.16 0 0 0 0-12.32zm0 10.16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.41-11.85a1.44 1.44 0 1 0 0 2.88 1.44 1.44 0 0 0 0-2.88z"/></svg></a></li>
+				<li><a href="https://line.me/ti/p/2c_H8ZEUiS" aria-label="Line" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2C6.48 2 2 5.64 2 10.13c0 4.03 3.58 7.4 8.41 8.04.33.07.77.22.89.5.1.26.07.66.03.92l-.14.86c-.04.26-.2 1.01.88.55 1.09-.46 5.87-3.45 8.01-5.91C21.55 13.42 22 11.85 22 10.13 22 5.64 17.52 2 12 2z"/></svg></a></li>
+			</ul>
+			<span class="copyright">© 2026 HSUN-WEI (WES) TU · 杜勳威</span>
+		</div>
+	</footer>
+
+	<script src="assets/tech/tech.js"></script>
+	<script>if(!window.__wesReady){document.querySelectorAll('.reveal,.cap-item').forEach(function(e){e.classList.add('visible');});}</script>
+	<noscript><style>.reveal,.cap-item{opacity:1!important;transform:none!important;}</style></noscript>
+</body>
+</html>
