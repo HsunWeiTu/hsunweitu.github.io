@@ -75,7 +75,7 @@
 				<p>The robot's teleop pipeline has two layers. The <strong>joy driver</strong> (from the <code>joy</code> package) reads raw USB HID events and publishes them as a <code>sensor_msgs/Joy</code> message on the <code>/joy</code> topic. The <strong>decision node</strong> —<code>joy_to_car_control_node</code> —translates that into the project's own <code>CarControl</code> message and forwards it downstream.</p>
 				<ul>
 					<li><code>/joy</code> —<code>sensor_msgs/msg/Joy</code> —raw normalised axes &amp; buttons from the gamepad.</li>
-					<li><code>/car_movement_control</code> —<code>interface/msg/CarControl</code> —physical speed commands (m/s, rad/s).</li>
+					<li><code>/car_movement_control</code> —<code>wes_car_interface/msg/CarControl</code> —physical speed commands (m/s, rad/s).</li>
 					<li><code>gesture_control_enabled</code> —<code>std_msgs/msg/Bool</code> —latched toggle so other nodes always get the current state.</li>
 				</ul>
 			</article>
@@ -112,9 +112,9 @@ self.declare_parameter('output_control_topic',   '/car_movement_control')
 self.declare_parameter('gesture_enabled_topic',  'gesture_control_enabled')
 
 # Which axis index controls each motion direction
-self.declare_parameter('axis_linear_x',  1)   # forward / backward
-self.declare_parameter('axis_linear_y',  0)   # left / right (strafe)
-self.declare_parameter('axis_angular_z', 2)   # rotate CW / CCW
+self.declare_parameter('axis_linear_x',  1)   # left stick vertical  — forward / backward
+self.declare_parameter('axis_linear_y',  0)   # left stick horizontal — left / right (strafe)
+self.declare_parameter('axis_angular_z', 3)   # right stick horizontal — rotate CW / CCW
 
 # Deadzone: axis values smaller than this are treated as zero
 self.declare_parameter('deadzone', 0.01)
@@ -124,7 +124,7 @@ self.declare_parameter('max_linear_speed',  0.5)   # [m/s]
 self.declare_parameter('max_angular_speed', 1.0)   # [rad/s]
 
 # Which button (buttons[] index) toggles gesture mode
-self.declare_parameter('gesture_toggle_button',          9)
+self.declare_parameter('gesture_toggle_button',          0)
 self.declare_parameter('gesture_control_default_enabled', False)</pre>
 				</div>
 				<p>To override a parameter at launch time, add <code>--ros-args -p axis_linear_x:=3</code> on the command line, or set it in the bring-up launch file's <code>parameters</code> list.</p>
@@ -199,13 +199,13 @@ ros2 run decision joy_to_car_control_node \
 # Watch the output CarControl messages
 ros2 topic echo /car_movement_control</pre>
 				</div>
-				<p>Once the node is running, push the left stick forward —you should see <code>speed_x</code> climb toward <code>0.5</code> (or your configured max). Strafe with the right stick and watch <code>speed_y</code> respond. The mecanum wheels handle all three axes simultaneously.</p>
+				<p>Once the node is running, push the left stick forward — <code>speed_x</code> climbs toward <code>0.5</code>. Tilt the left stick sideways and <code>speed_y</code> responds for strafing. Push the right stick left or right and <code>rotate_z</code> changes for rotation. The mecanum wheels handle all three axes simultaneously.</p>
 			</article>
 
 			<article class="doc-step reveal">
 				<span class="doc-kicker">07 / CarControl</span>
 				<h2>The CarControl message</h2>
-				<p>The node publishes a custom <code>interface/msg/CarControl</code> message instead of the standard <code>geometry_msgs/Twist</code>. This lets it carry extra fields —a <code>mode</code> flag, a <code>header</code> timestamp, and separate linear axes —so the control layer downstream can route commands from different sources (joystick, gesture, keyboard) through the same topic.</p>
+				<p>The node publishes a custom <code>wes_car_interface/msg/CarControl</code> message instead of the standard <code>geometry_msgs/Twist</code>. This lets it carry extra fields —a <code>mode</code> flag, a <code>header</code> timestamp, and separate linear axes —so the control layer downstream can route commands from different sources (joystick, gesture, keyboard) through the same topic.</p>
 				<div class="code-block">
 					<span class="code-tag">CarControl fields (relevant subset)</span>
 <pre>std_msgs/Header header       # timestamp
