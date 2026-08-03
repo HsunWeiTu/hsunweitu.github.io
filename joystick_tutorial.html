@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<title>Joystick Teleop ??Mecanum AGV | Wes Tu</title>
+	<title>Joystick Teleop — Mecanum AGV | Wes Tu</title>
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
-	<meta name="description" content="A step-by-step guide to the joystick teleop node for the mecanum AGV ??Joy topic, axis mapping, deadzone, speed limits and gesture-mode toggle." />
+	<meta name="description" content="A step-by-step guide to the joystick teleop node for the mecanum AGV — Joy topic, axis mapping, deadzone, speed limits and gesture-mode toggle." />
 	<link rel="preconnect" href="https://fonts.googleapis.com" />
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 	<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet" />
@@ -29,7 +29,7 @@
 				</span>
 				<span class="brand-text">
 					<span class="brand-name">WES.TU</span>
-					<span class="brand-sub">MECHATRONICS · ?�勳�?/span>
+					<span class="brand-sub">MECHATRONICS · 杜勳威</span>
 				</span>
 			</a>
 			<button class="nav-toggle" aria-label="Open menu"><span></span><span></span><span></span></button>
@@ -37,7 +37,7 @@
 				<li><a href="index.html">Home</a></li>
 				<li><a href="academic_background.html">Academic</a></li>
 				<li class="nav-drop">
-					<button class="nav-drop-label">Experience <span class="caret">??/span></button>
+					<button class="nav-drop-label">Experience <span class="caret">▼</span></button>
 					<ul class="nav-dropdown">
 						<li><a href="work_experience.html">Overview</a></li>
 						<li><a href="Techncare.html">Techncare Biomedical</a></li>
@@ -56,11 +56,11 @@
 
 		<section class="page-hero">
 			<div class="reveal">
-				<div class="page-id">LAB.02a / Joystick Teleop <span class="zh">?�桿?�控?�學</span></div>
+				<div class="page-id">LAB.02a / Joystick Teleop <span class="zh">搖桿遙控教學</span></div>
 				<h1>Driving the AGV<br />with a gamepad joystick</h1>
-				<p class="lead">The <code>joy_to_car_control_node</code> sits between the ROS2 <code>joy</code> driver and the car's control layer. It reads normalised axis values from <code>/joy</code>, applies a deadzone, converts them to physical speeds and publishes a <code>CarControl</code> message ??and lets you toggle the gesture-control mode without leaving your gamepad.</p>
+				<p class="lead">The <code>joy_to_car_control_node</code> sits between the ROS2 <code>joy</code> driver and the car's control layer. It reads normalised axis values from <code>/joy</code>, applies a deadzone, converts them to physical speeds and publishes a <code>CarControl</code> message — and lets you toggle the gesture-control mode without leaving your gamepad.</p>
 				<div class="hero-actions" style="margin-top: 1.6rem;">
-					<a class="btn" href="project_ros2car.html">??Back to Build</a>
+					<a class="btn" href="project_ros2car.html">← Back to Build</a>
 					<a class="btn" href="thumb_control_tutorial.html">Thumb Control Guide</a>
 					<a class="btn btn-icon" href="https://github.com/HsunWeiTu/wes_car/blob/main/roscar_ws/src/decision/decision/joy_to_car_control_node.py" target="_blank" rel="noopener" aria-label="Source on GitHub" title="Browse Source"><span class="gh-ico" aria-hidden="true"></span></a>
 				</div>
@@ -72,11 +72,11 @@
 			<article class="doc-step reveal">
 				<span class="doc-kicker">01 / Concept</span>
 				<h2>How the node fits into the stack</h2>
-				<p>The robot's teleop pipeline has two layers. The <strong>joy driver</strong> (from the <code>joy</code> package) reads raw USB HID events and publishes them as a <code>sensor_msgs/Joy</code> message on the <code>/joy</code> topic. The <strong>decision node</strong> ??<code>joy_to_car_control_node</code> ??translates that into the project's own <code>CarControl</code> message and forwards it downstream.</p>
+				<p>The robot's teleop pipeline has two layers. The <strong>joy driver</strong> (from the <code>joy</code> package) reads raw USB HID events and publishes them as a <code>sensor_msgs/Joy</code> message on the <code>/joy</code> topic. The <strong>decision node</strong> —<code>joy_to_car_control_node</code> —translates that into the project's own <code>CarControl</code> message and forwards it downstream.</p>
 				<ul>
-					<li><code>/joy</code> ??<code>sensor_msgs/msg/Joy</code> ??raw normalised axes &amp; buttons from the gamepad.</li>
-					<li><code>/car_movement_control</code> ??<code>interface/msg/CarControl</code> ??physical speed commands (m/s, rad/s).</li>
-					<li><code>gesture_control_enabled</code> ??<code>std_msgs/msg/Bool</code> ??latched toggle so other nodes always get the current state.</li>
+					<li><code>/joy</code> —<code>sensor_msgs/msg/Joy</code> —raw normalised axes &amp; buttons from the gamepad.</li>
+					<li><code>/car_movement_control</code> —<code>interface/msg/CarControl</code> —physical speed commands (m/s, rad/s).</li>
+					<li><code>gesture_control_enabled</code> —<code>std_msgs/msg/Bool</code> —latched toggle so other nodes always get the current state.</li>
 				</ul>
 			</article>
 
@@ -90,7 +90,7 @@
 sudo apt install ros-$ROS_DISTRO-joy
 
 # Check your gamepad is visible to the OS
-ls /dev/input/js*       # should show js0 (or js1 ??
+ls /dev/input/js*       # should show js0 (or js1)
 
 # Launch the joy driver standalone to verify
 ros2 run joy joy_node
@@ -106,7 +106,7 @@ ros2 topic echo /joy</pre>
 				<h2>Axis mapping &amp; parameters</h2>
 				<p>Different gamepads expose axes in a different order. The node declares three ROS2 parameters so the mapping can be changed without editing the code. The defaults match a standard Xbox/PS-style controller connected over USB.</p>
 				<div class="code-block">
-					<span class="code-tag">joy_to_car_control_node.py ??parameters</span>
+					<span class="code-tag">joy_to_car_control_node.py — parameters</span>
 <pre>self.declare_parameter('joy_topic',              'joy')
 self.declare_parameter('output_control_topic',   '/car_movement_control')
 self.declare_parameter('gesture_enabled_topic',  'gesture_control_enabled')
@@ -119,7 +119,7 @@ self.declare_parameter('axis_angular_z', 2)   # rotate CW / CCW
 # Deadzone: axis values smaller than this are treated as zero
 self.declare_parameter('deadzone', 0.01)
 
-# Speed limits ??normalised axis value [-1,1] ? max = real speed
+# Speed limits: normalised axis value [-1,1] * max = real speed
 self.declare_parameter('max_linear_speed',  0.5)   # [m/s]
 self.declare_parameter('max_angular_speed', 1.0)   # [rad/s]
 
@@ -135,8 +135,8 @@ self.declare_parameter('gesture_control_default_enabled', False)</pre>
 				<h2>Deadzone &amp; speed conversion</h2>
 				<p>Analog sticks always have a small resting noise. The deadzone discards any axis value whose absolute magnitude is below the threshold, preventing the robot from drifting when the stick is untouched.</p>
 				<div class="code-block">
-					<span class="code-tag">joy_callback ??axis ??speed</span>
-<pre># Read normalised axis values  [-1.0 ??+1.0]
+					<span class="code-tag">joy_callback — axis -> speed</span>
+<pre># Read normalised axis values  [-1.0 -> +1.0]
 forward_backward = msg.axes[self.axis_linear_x]   # +1 = forward, -1 = back
 left_right       = msg.axes[self.axis_linear_y]   # +1 = left,    -1 = right
 cw_ccw           = msg.axes[self.axis_angular_z]  # +1 = CCW,     -1 = CW
@@ -159,22 +159,22 @@ if abs(cw_ccw) > threshold:
 			<article class="doc-step reveal">
 				<span class="doc-kicker">05 / Toggle</span>
 				<h2>Gesture-mode toggle button</h2>
-				<p>Button 9 (configurable) on the gamepad toggles the gesture-control layer on or off. The logic is <strong>edge-triggered</strong>: it fires once on the falling edge (button pressed), not on every tick while it is held down. The state is published on a <em>latched</em> QoS topic so any node that starts later ??like the OLED display ??immediately receives the current state.</p>
+				<p>Button 9 (configurable) on the gamepad toggles the gesture-control layer on or off. The logic is <strong>edge-triggered</strong>: it fires once on the falling edge (button pressed), not on every tick while it is held down. The state is published on a <em>latched</em> QoS topic so any node that starts later —like the OLED display —immediately receives the current state.</p>
 				<div class="code-block">
 					<span class="code-tag">handle_gesture_toggle</span>
 <pre>def handle_gesture_toggle(self, msg):
-    # Edge detection: only act when button transitions from released ??pressed
+    # Edge detection: only act when button transitions from released -> pressed
     if self.gesture_toggle_button >= len(msg.buttons):
         return
     pressed = msg.buttons[self.gesture_toggle_button] == 1
     if pressed and not self.prev_toggle_pressed:
         self.gesture_enabled = not self.gesture_enabled
         self.get_logger().info(
-            f'?�勢?��? -> {"?��?" if self.gesture_enabled else "?��?"}')
+            f'手勢控制 -> {"啟用" if self.gesture_enabled else "停用"}')
         self.publish_gesture_enabled()   # latched QoS publish
     self.prev_toggle_pressed = pressed</pre>
 				</div>
-				<p>The <code>gesture_control_enabled</code> topic uses <code>TRANSIENT_LOCAL</code> durability so even nodes that subscribe after this one publishes will receive the most recent value ??no missed updates.</p>
+				<p>The <code>gesture_control_enabled</code> topic uses <code>TRANSIENT_LOCAL</code> durability so even nodes that subscribe after this one publishes will receive the most recent value —no missed updates.</p>
 			</article>
 
 			<article class="doc-step reveal">
@@ -186,7 +186,7 @@ if abs(cw_ccw) > threshold:
 <pre># Full bring-up (joy + gesture + hardware all enabled by default)
 ros2 launch bring_up bring_up.launch.py
 
-# Joy only ??disable other inputs
+# Joy only —disable other inputs
 ros2 launch bring_up bring_up.launch.py \
   use_keyboard:=false use_gesture:=false
 
@@ -199,13 +199,13 @@ ros2 run decision joy_to_car_control_node \
 # Watch the output CarControl messages
 ros2 topic echo /car_movement_control</pre>
 				</div>
-				<p>Once the node is running, push the left stick forward ??you should see <code>speed_x</code> climb toward <code>0.5</code> (or your configured max). Strafe with the right stick and watch <code>speed_y</code> respond. The mecanum wheels handle all three axes simultaneously.</p>
+				<p>Once the node is running, push the left stick forward —you should see <code>speed_x</code> climb toward <code>0.5</code> (or your configured max). Strafe with the right stick and watch <code>speed_y</code> respond. The mecanum wheels handle all three axes simultaneously.</p>
 			</article>
 
 			<article class="doc-step reveal">
 				<span class="doc-kicker">07 / CarControl</span>
 				<h2>The CarControl message</h2>
-				<p>The node publishes a custom <code>interface/msg/CarControl</code> message instead of the standard <code>geometry_msgs/Twist</code>. This lets it carry extra fields ??a <code>mode</code> flag, a <code>header</code> timestamp, and separate linear axes ??so the control layer downstream can route commands from different sources (joystick, gesture, keyboard) through the same topic.</p>
+				<p>The node publishes a custom <code>interface/msg/CarControl</code> message instead of the standard <code>geometry_msgs/Twist</code>. This lets it carry extra fields —a <code>mode</code> flag, a <code>header</code> timestamp, and separate linear axes —so the control layer downstream can route commands from different sources (joystick, gesture, keyboard) through the same topic.</p>
 				<div class="code-block">
 					<span class="code-tag">CarControl fields (relevant subset)</span>
 <pre>std_msgs/Header header       # timestamp
@@ -218,7 +218,7 @@ float32 rotate_z             # yaw rate           [rad/s]</pre>
 			</article>
 
 			<div class="reveal" style="margin-top: 2rem; display: flex; gap: 0.6rem; flex-wrap: wrap;">
-				<a class="btn" href="project_ros2car.html">??Back to Build</a>
+				<a class="btn" href="project_ros2car.html">← Back to Build</a>
 				<a class="btn" href="thumb_control_tutorial.html">Thumb Control Guide</a>
 				<a class="btn btn-icon" href="https://github.com/HsunWeiTu/wes_car/blob/main/roscar_ws/src/decision/decision/joy_to_car_control_node.py" target="_blank" rel="noopener" aria-label="Source on GitHub" title="Browse Source"><span class="gh-ico" aria-hidden="true"></span></a>
 			</div>
@@ -236,13 +236,13 @@ float32 rotate_z             # yaw rate           [rad/s]</pre>
 				DESIGNED &amp; BUILT IN TAIWAN
 			</span>
 			<ul class="social-row">
-				<li><a href="https://www.linkedin.com/in/?��?-??a4b073119" aria-label="LinkedIn" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.36V9h3.41v1.56h.05c.47-.9 1.63-1.85 3.36-1.85 3.6 0 4.27 2.37 4.27 5.45v6.29zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.12 20.45H3.56V9h3.56v11.45z"/></svg></a></li>
+				<li><a href="https://www.linkedin.com/in/勳威-杜-a4b073119" aria-label="LinkedIn" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.36V9h3.41v1.56h.05c.47-.9 1.63-1.85 3.36-1.85 3.6 0 4.27 2.37 4.27 5.45v6.29zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.12 20.45H3.56V9h3.56v11.45z"/></svg></a></li>
 				<li><a href="https://www.facebook.com/profile.php?id=100002734296589&amp;locale=zh_TW" aria-label="Facebook" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13.5 21v-8.25h2.77l.41-3.22H13.5V7.47c0-.93.26-1.57 1.6-1.57h1.7V3.02c-.3-.04-1.3-.13-2.48-.13-2.45 0-4.13 1.5-4.13 4.24v2.37H7.5v3.22h2.69V21h3.31z"/></svg></a></li>
 				<li><a href="https://www.instagram.com/hsun_wei_tu/" aria-label="Instagram" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.16c3.2 0 3.58.01 4.85.07 3.25.15 4.77 1.69 4.92 4.92.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.15 3.23-1.66 4.77-4.92 4.92-1.27.06-1.65.07-4.85.07s-3.58-.01-4.85-.07c-3.26-.15-4.77-1.7-4.92-4.92-.06-1.27-.07-1.65-.07-4.85s.01-3.58.07-4.85C2.38 3.92 3.9 2.38 7.15 2.23 8.42 2.17 8.8 2.16 12 2.16zm0 3.68a6.16 6.16 0 1 0 0 12.32 6.16 6.16 0 0 0 0-12.32zm0 10.16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.41-11.85a1.44 1.44 0 1 0 0 2.88 1.44 1.44 0 0 0 0-2.88z"/></svg></a></li>
 				<li><a href="https://line.me/ti/p/2c_H8ZEUiS" aria-label="Line" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2C6.48 2 2 5.64 2 10.13c0 4.03 3.58 7.4 8.41 8.04.33.07.77.22.89.5.1.26.07.66.03.92l-.14.86c-.04.26-.2 1.01.88.55 1.09-.46 5.87-3.45 8.01-5.91C21.55 13.42 22 11.85 22 10.13 22 5.64 17.52 2 12 2z"/></svg></a></li>
 				<li><a href="https://github.com/HsunWeiTu/" aria-label="GitHub" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 .5C5.65.5.5 5.65.5 12a11.5 11.5 0 0 0 7.86 10.93c.58.1.79-.25.79-.56v-2.17c-3.2.7-3.87-1.36-3.87-1.36-.52-1.32-1.27-1.67-1.27-1.67-1.04-.71.08-.69.08-.69 1.15.08 1.75 1.18 1.75 1.18 1.02 1.74 2.67 1.24 3.32.95.1-.74.4-1.24.72-1.53-2.55-.29-5.24-1.27-5.24-5.67 0-1.25.45-2.27 1.18-3.07-.12-.29-.51-1.46.11-3.05 0 0 .96-.31 3.15 1.17a10.9 10.9 0 0 1 5.74 0c2.19-1.48 3.15-1.17 3.15-1.17.62 1.59.23 2.76.11 3.05.73.8 1.18 1.82 1.18 3.07 0 4.41-2.69 5.38-5.25 5.66.41.35.77 1.03.77 2.08v3.08c0 .31.21.66.8.55A11.5 11.5 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5z"/></svg></a></li>
 			</ul>
-			<span class="copyright">© 2026 HSUN-WEI (WES) TU · ?�勳�?/span>
+			<span class="copyright">© 2026 HSUN-WEI (WES) TU · 杜勳威</span>
 		</div>
 	</footer>
 

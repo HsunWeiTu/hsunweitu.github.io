@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<title>Thumb Control ??Mecanum AGV | Wes Tu</title>
+	<title>Thumb Control — Mecanum AGV | Wes Tu</title>
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
-	<meta name="description" content="A step-by-step guide to the thumb-gesture control node for the mecanum AGV ??hand landmarks, thumbs-up direction logic, MediaPipe pipeline and enable/disable toggling." />
+	<meta name="description" content="A step-by-step guide to the thumb-gesture control node for the mecanum AGV — hand landmarks, thumbs-up direction logic, MediaPipe pipeline and enable/disable toggling." />
 	<link rel="preconnect" href="https://fonts.googleapis.com" />
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 	<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet" />
@@ -29,7 +29,7 @@
 				</span>
 				<span class="brand-text">
 					<span class="brand-name">WES.TU</span>
-					<span class="brand-sub">MECHATRONICS · ?�勳�?/span>
+					<span class="brand-sub">MECHATRONICS · 杜勳威</span>
 				</span>
 			</a>
 			<button class="nav-toggle" aria-label="Open menu"><span></span><span></span><span></span></button>
@@ -37,7 +37,7 @@
 				<li><a href="index.html">Home</a></li>
 				<li><a href="academic_background.html">Academic</a></li>
 				<li class="nav-drop">
-					<button class="nav-drop-label">Experience <span class="caret">??/span></button>
+					<button class="nav-drop-label">Experience <span class="caret">▼</span></button>
 					<ul class="nav-dropdown">
 						<li><a href="work_experience.html">Overview</a></li>
 						<li><a href="Techncare.html">Techncare Biomedical</a></li>
@@ -56,11 +56,11 @@
 
 		<section class="page-hero">
 			<div class="reveal">
-				<div class="page-id">LAB.02b / Thumb Control <span class="zh">?��??�勢?��??�學</span></div>
+				<div class="page-id">LAB.02b / Thumb Control <span class="zh">拇指手勢遙控教學</span></div>
 				<h1>Steering the AGV<br />with a thumbs-up gesture</h1>
-				<p class="lead">The <code>gesture_to_car_control_node</code> turns a single hand gesture ??four fingers curled into a fist with the thumb extended ??into a directional drive command. The direction the thumb points maps directly onto one of the four mecanum motions: forward, reverse, strafe-left or strafe-right.</p>
+				<p class="lead">The <code>gesture_to_car_control_node</code> turns a single hand gesture —four fingers curled into a fist with the thumb extended —into a directional drive command. The direction the thumb points maps directly onto one of the four mecanum motions: forward, reverse, strafe-left or strafe-right.</p>
 				<div class="hero-actions" style="margin-top: 1.6rem;">
-					<a class="btn" href="project_ros2car.html">??Back to Build</a>
+					<a class="btn" href="project_ros2car.html">← Back to Build</a>
 					<a class="btn" href="joystick_tutorial.html">Joystick Guide</a>
 					<a class="btn btn-icon" href="https://github.com/HsunWeiTu/wes_car/blob/main/roscar_ws/src/decision/decision/gesture_to_car_control_node.py" target="_blank" rel="noopener" aria-label="Source on GitHub" title="Browse Source"><span class="gh-ico" aria-hidden="true"></span></a>
 				</div>
@@ -72,11 +72,11 @@
 			<article class="doc-step reveal">
 				<span class="doc-kicker">01 / Concept</span>
 				<h2>Gesture pipeline overview</h2>
-				<p>Hand-gesture control spans two ROS2 nodes. The <strong>perception node</strong> (<code>hand_gesture_recognition_node</code> in the <code>perception</code> package) runs MediaPipe Hands on the camera image and publishes 21 hand-landmark 3-D points as a custom <code>Gesture</code> message. The <strong>decision node</strong> ??<code>gesture_to_car_control_node</code> ??reads those landmarks and maps the thumb direction to a motion command.</p>
+				<p>Hand-gesture control spans two ROS2 nodes. The <strong>perception node</strong> (<code>hand_gesture_recognition_node</code> in the <code>perception</code> package) runs MediaPipe Hands on the camera image and publishes 21 hand-landmark 3-D points as a custom <code>Gesture</code> message. The <strong>decision node</strong> —<code>gesture_to_car_control_node</code> —reads those landmarks and maps the thumb direction to a motion command.</p>
 				<ul>
-					<li><code>raw_gesture_data</code> ??<code>interface/msg/Gesture</code> ??21 MediaPipe landmarks (wrist + 4 fingers ? 5 points).</li>
-					<li><code>/car_movement_control</code> ??<code>interface/msg/CarControl</code> ??physical speed command for the selected direction.</li>
-					<li><code>gesture_control_enabled</code> ??<code>std_msgs/msg/Bool</code> ??latched on/off switch published by the joystick node.</li>
+					<li><code>raw_gesture_data</code> —<code>interface/msg/Gesture</code> —21 MediaPipe landmarks (wrist + 4 fingers * 5 points).</li>
+					<li><code>/car_movement_control</code> —<code>interface/msg/CarControl</code> —physical speed command for the selected direction.</li>
+					<li><code>gesture_control_enabled</code> —<code>std_msgs/msg/Bool</code> —latched on/off switch published by the joystick node.</li>
 				</ul>
 			</article>
 
@@ -87,11 +87,11 @@
 				<div class="code-block">
 					<span class="code-tag">landmark indices used by the node</span>
 <pre># Wrist anchor
-Gesture.WRIST           # 0 ??base of the palm
+Gesture.WRIST           # 0 —base of the palm
 
 # Thumb
-Gesture.THUMB_MCP       # 2 ??thumb knuckle (metacarpal-phalangeal joint)
-Gesture.THUMB_TIP       # 4 ??thumb fingertip
+Gesture.THUMB_MCP       # 2 —thumb knuckle (metacarpal-phalangeal joint)
+Gesture.THUMB_TIP       # 4 —thumb fingertip
 
 # Four fingers (used for fist-curl detection)
 Gesture.INDEX_TIP       # 8   INDEX_PIP  # 6
@@ -99,7 +99,7 @@ Gesture.MIDDLE_TIP      # 12  MIDDLE_PIP # 10
 Gesture.RING_TIP        # 16  RING_PIP   # 14
 Gesture.PINKY_TIP       # 20  PINKY_PIP  # 18</pre>
 				</div>
-				<p>The node requires a complete 21-landmark array. If <code>len(msg.landmarks) &lt; 21</code>, the callback publishes a stop command and returns early ??preventing corrupt partial detections from moving the robot.</p>
+				<p>The node requires a complete 21-landmark array. If <code>len(msg.landmarks) &lt; 21</code>, the callback publishes a stop command and returns early —preventing corrupt partial detections from moving the robot.</p>
 			</article>
 
 			<article class="doc-step reveal">
@@ -107,7 +107,7 @@ Gesture.PINKY_TIP       # 20  PINKY_PIP  # 18</pre>
 				<h2>Detecting the thumbs-up gesture</h2>
 				<p>Before reading thumb direction the node first confirms the hand is showing the correct gesture: four fingers curled (fist) and the thumb clearly extended. This two-step check rejects unintentional open-hand frames.</p>
 				<div class="code-block">
-					<span class="code-tag">is_thumb_gesture ??fist + extended thumb</span>
+					<span class="code-tag">is_thumb_gesture —fist + extended thumb</span>
 <pre>def is_thumb_gesture(self, msg):
     wrist = msg.landmarks[Gesture.WRIST]
 
@@ -121,7 +121,7 @@ Gesture.PINKY_TIP       # 20  PINKY_PIP  # 18</pre>
     for tip_idx, pip_idx in fingers:
         if not self.is_finger_curled(
                 msg.landmarks[tip_idx], msg.landmarks[pip_idx], wrist):
-            return False   # at least one finger is open ??not a fist
+            return False   # at least one finger is open —not a fist
 
     # Step 2: thumb tip must be farther from the wrist than thumb MCP
     return self.is_thumb_extended(
@@ -130,11 +130,11 @@ Gesture.PINKY_TIP       # 20  PINKY_PIP  # 18</pre>
         wrist)
 
 def is_finger_curled(self, tip, pip, wrist):
-    # Curled: tip?�wrist distance ??PIP?�wrist distance ? curl_ratio
+    # Curled: tip->wrist distance <= PIP->wrist distance * curl_ratio
     return self.dist(tip, wrist) &lt;= self.dist(pip, wrist) * self.curl_ratio
 
 def is_thumb_extended(self, thumb_tip, thumb_mcp, wrist):
-    # Extended: tip?�wrist distance ??MCP?�wrist distance ? thumb_extend_ratio
+    # Extended: tip->wrist distance >= MCP->wrist distance * thumb_extend_ratio
     return self.dist(thumb_tip, wrist) >= self.dist(thumb_mcp, wrist) * self.thumb_extend_ratio</pre>
 				</div>
 				<p>The distance helper uses the full 3-D Euclidean norm so the check works regardless of hand rotation or depth from the camera.</p>
@@ -142,11 +142,11 @@ def is_thumb_extended(self, thumb_tip, thumb_mcp, wrist):
 
 			<article class="doc-step reveal">
 				<span class="doc-kicker">04 / Direction</span>
-				<h2>Mapping thumb direction ??motion</h2>
+				<h2>Mapping thumb direction -> motion</h2>
 				<p>Once the gesture is confirmed, the node computes a 2-D direction vector from the thumb MCP (knuckle) to the thumb tip, then compares the horizontal and vertical components to find the dominant axis. The mapping is <strong>mirror-corrected</strong>: because the camera sees a mirror image of the user, left/right are swapped so the robot moves in the direction that feels natural.</p>
 				<div class="code-block">
-					<span class="code-tag">listener_callback ??direction logic</span>
-<pre># Direction vector: thumb tip ??thumb knuckle (MCP)
+					<span class="code-tag">listener_callback — direction logic</span>
+<pre># Direction vector: thumb tip -> thumb knuckle (MCP)
 thumb_tip = msg.landmarks[Gesture.THUMB_TIP]
 thumb_mcp = msg.landmarks[Gesture.THUMB_MCP]
 thumb_vx  = thumb_tip.x - thumb_mcp.x   # positive = user's right
@@ -157,23 +157,23 @@ threshold = self.thumb_threshold   # default 0.06
 if abs(thumb_vy) >= abs(thumb_vx):
     # Vertical motion dominates
     if thumb_vy &lt; -threshold:
-        control_msg.speed_x =  self.command_linear_speed  # thumb UP ??forward
+        control_msg.speed_x =  self.command_linear_speed  # thumb UP -> forward
     elif thumb_vy > threshold:
-        control_msg.speed_x = -self.command_linear_speed  # thumb DOWN ??reverse
+        control_msg.speed_x = -self.command_linear_speed  # thumb DOWN -> reverse
 else:
     # Horizontal motion dominates (mirror-corrected)
     if thumb_vx &lt; -threshold:
-        control_msg.speed_y =  self.command_linear_speed  # user left ??car right
+        control_msg.speed_y =  self.command_linear_speed  # user left -> car right
     elif thumb_vx > threshold:
-        control_msg.speed_y = -self.command_linear_speed  # user right ??car left</pre>
+        control_msg.speed_y = -self.command_linear_speed  # user right -> car left</pre>
 				</div>
 				<table style="width:100%;border-collapse:collapse;margin-top:0.8rem;font-size:0.88rem;">
 					<thead><tr style="border-bottom:1px solid rgba(255,255,255,.15)"><th style="text-align:left;padding:0.4rem 0.6rem;">Thumb direction</th><th style="text-align:left;padding:0.4rem 0.6rem;">Robot motion</th><th style="text-align:left;padding:0.4rem 0.6rem;">Field set</th></tr></thead>
 					<tbody>
-						<tr><td style="padding:0.4rem 0.6rem;">?? Up</td><td style="padding:0.4rem 0.6rem;">Forward</td><td style="padding:0.4rem 0.6rem;font-family:monospace;">speed_x = +0.3</td></tr>
-						<tr><td style="padding:0.4rem 0.6rem;">?? Down</td><td style="padding:0.4rem 0.6rem;">Reverse</td><td style="padding:0.4rem 0.6rem;font-family:monospace;">speed_x = ??.3</td></tr>
-						<tr><td style="padding:0.4rem 0.6rem;">??Left (user POV)</td><td style="padding:0.4rem 0.6rem;">Strafe right</td><td style="padding:0.4rem 0.6rem;font-family:monospace;">speed_y = +0.3</td></tr>
-						<tr><td style="padding:0.4rem 0.6rem;">??Right (user POV)</td><td style="padding:0.4rem 0.6rem;">Strafe left</td><td style="padding:0.4rem 0.6rem;font-family:monospace;">speed_y = ??.3</td></tr>
+						<tr><td style="padding:0.4rem 0.6rem;">↑ Up</td><td style="padding:0.4rem 0.6rem;">Forward</td><td style="padding:0.4rem 0.6rem;font-family:monospace;">speed_x = +0.3</td></tr>
+						<tr><td style="padding:0.4rem 0.6rem;">↓ Down</td><td style="padding:0.4rem 0.6rem;">Reverse</td><td style="padding:0.4rem 0.6rem;font-family:monospace;">speed_x = -0.3</td></tr>
+						<tr><td style="padding:0.4rem 0.6rem;">← Left (user POV)</td><td style="padding:0.4rem 0.6rem;">Strafe right</td><td style="padding:0.4rem 0.6rem;font-family:monospace;">speed_y = +0.3</td></tr>
+						<tr><td style="padding:0.4rem 0.6rem;">→ Right (user POV)</td><td style="padding:0.4rem 0.6rem;">Strafe left</td><td style="padding:0.4rem 0.6rem;font-family:monospace;">speed_y = -0.3</td></tr>
 					</tbody>
 				</table>
 			</article>
@@ -183,7 +183,7 @@ else:
 				<h2>Tunable parameters</h2>
 				<p>All thresholds and speeds are exposed as ROS2 parameters so you can tune the sensitivity without recompiling. Increase <code>thumb_threshold</code> if the robot reacts to small thumb wobbles; decrease <code>curl_ratio</code> if you want a stricter fist check.</p>
 				<div class="code-block">
-					<span class="code-tag">gesture_to_car_control_node.py ??parameters</span>
+					<span class="code-tag">gesture_to_car_control_node.py — parameters</span>
 <pre>self.declare_parameter('input_gesture_topic',   'raw_gesture_data')
 self.declare_parameter('output_control_topic',  '/car_movement_control')
 self.declare_parameter('enabled_topic',         'gesture_control_enabled')
@@ -191,10 +191,10 @@ self.declare_parameter('enabled_topic',         'gesture_control_enabled')
 # Minimum thumb displacement to count as a directional command
 self.declare_parameter('thumb_threshold',       0.06)
 
-# Curl check: tip?�wrist &lt; PIP?�wrist ? ratio ??finger is curled
+# Curl check: tip->wrist < PIP->wrist * ratio — finger is curled
 self.declare_parameter('curl_ratio',            1.0)
 
-# Extend check: tip?�wrist ??MCP?�wrist ? ratio ??thumb is out
+# Extend check: tip->wrist >= MCP->wrist * ratio — thumb is out
 self.declare_parameter('thumb_extend_ratio',    1.1)
 
 # Speed issued when a valid gesture is detected
@@ -215,11 +215,11 @@ self.declare_parameter('default_enabled',       False)</pre>
     if msg.data != self.enabled:
         self.enabled = msg.data
         self.get_logger().info(
-            f'?�勢?��? -> {"?��?" if self.enabled else "?��?"}')
+            f'手勢控制 -> {"啟用" if self.enabled else "停用"}')
         if not self.enabled:
             self.publish_stop()   # immediately stop the robot when disabled</pre>
 				</div>
-				<p>While disabled, every incoming <code>Gesture</code> message is answered with a stop command ??the robot won't move even if the hand is in frame.</p>
+				<p>While disabled, every incoming <code>Gesture</code> message is answered with a stop command —the robot won't move even if the hand is in frame.</p>
 			</article>
 
 			<article class="doc-step reveal">
@@ -228,7 +228,7 @@ self.declare_parameter('default_enabled',       False)</pre>
 				<p>Gesture control requires the camera and the perception node to be running alongside the decision node. The bring-up launch file handles everything in one shot.</p>
 				<div class="code-block">
 					<span class="code-tag">terminal</span>
-<pre># Full bring-up ??gesture enabled by default
+<pre># Full bring-up —gesture enabled by default
 ros2 launch bring_up bring_up.launch.py
 
 # Gesture only (no hardware, no joystick)
@@ -247,11 +247,11 @@ ros2 topic echo /car_movement_control
 # Enable gesture mode from the command line (without the joystick button)
 ros2 topic pub --once gesture_control_enabled std_msgs/msg/Bool "data: true"</pre>
 				</div>
-				<p>Hold your right hand in front of the camera with four fingers curled into a fist. Point your thumb upward ??the robot drives forward. Rotate your thumb to the side and it strafes. Let the fist open or lower the hand below frame and the node publishes a stop.</p>
+				<p>Hold your right hand in front of the camera with four fingers curled into a fist. Point your thumb upward —the robot drives forward. Rotate your thumb to the side and it strafes. Let the fist open or lower the hand below frame and the node publishes a stop.</p>
 			</article>
 
 			<div class="reveal" style="margin-top: 2rem; display: flex; gap: 0.6rem; flex-wrap: wrap;">
-				<a class="btn" href="project_ros2car.html">??Back to Build</a>
+				<a class="btn" href="project_ros2car.html">← Back to Build</a>
 				<a class="btn" href="joystick_tutorial.html">Joystick Guide</a>
 				<a class="btn btn-icon" href="https://github.com/HsunWeiTu/wes_car/blob/main/roscar_ws/src/decision/decision/gesture_to_car_control_node.py" target="_blank" rel="noopener" aria-label="Source on GitHub" title="Browse Source"><span class="gh-ico" aria-hidden="true"></span></a>
 			</div>
@@ -269,13 +269,13 @@ ros2 topic pub --once gesture_control_enabled std_msgs/msg/Bool "data: true"</pr
 				DESIGNED &amp; BUILT IN TAIWAN
 			</span>
 			<ul class="social-row">
-				<li><a href="https://www.linkedin.com/in/?��?-??a4b073119" aria-label="LinkedIn" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.36V9h3.41v1.56h.05c.47-.9 1.63-1.85 3.36-1.85 3.6 0 4.27 2.37 4.27 5.45v6.29zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.12 20.45H3.56V9h3.56v11.45z"/></svg></a></li>
+				<li><a href="https://www.linkedin.com/in/勳威-杜-a4b073119" aria-label="LinkedIn" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.36V9h3.41v1.56h.05c.47-.9 1.63-1.85 3.36-1.85 3.6 0 4.27 2.37 4.27 5.45v6.29zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.12 20.45H3.56V9h3.56v11.45z"/></svg></a></li>
 				<li><a href="https://www.facebook.com/profile.php?id=100002734296589&amp;locale=zh_TW" aria-label="Facebook" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13.5 21v-8.25h2.77l.41-3.22H13.5V7.47c0-.93.26-1.57 1.6-1.57h1.7V3.02c-.3-.04-1.3-.13-2.48-.13-2.45 0-4.13 1.5-4.13 4.24v2.37H7.5v3.22h2.69V21h3.31z"/></svg></a></li>
 				<li><a href="https://www.instagram.com/hsun_wei_tu/" aria-label="Instagram" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.16c3.2 0 3.58.01 4.85.07 3.25.15 4.77 1.69 4.92 4.92.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.15 3.23-1.66 4.77-4.92 4.92-1.27.06-1.65.07-4.85.07s-3.58-.01-4.85-.07c-3.26-.15-4.77-1.7-4.92-4.92-.06-1.27-.07-1.65-.07-4.85s.01-3.58.07-4.85C2.38 3.92 3.9 2.38 7.15 2.23 8.42 2.17 8.8 2.16 12 2.16zm0 3.68a6.16 6.16 0 1 0 0 12.32 6.16 6.16 0 0 0 0-12.32zm0 10.16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.41-11.85a1.44 1.44 0 1 0 0 2.88 1.44 1.44 0 0 0 0-2.88z"/></svg></a></li>
 				<li><a href="https://line.me/ti/p/2c_H8ZEUiS" aria-label="Line" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2C6.48 2 2 5.64 2 10.13c0 4.03 3.58 7.4 8.41 8.04.33.07.77.22.89.5.1.26.07.66.03.92l-.14.86c-.04.26-.2 1.01.88.55 1.09-.46 5.87-3.45 8.01-5.91C21.55 13.42 22 11.85 22 10.13 22 5.64 17.52 2 12 2z"/></svg></a></li>
 				<li><a href="https://github.com/HsunWeiTu/" aria-label="GitHub" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 .5C5.65.5.5 5.65.5 12a11.5 11.5 0 0 0 7.86 10.93c.58.1.79-.25.79-.56v-2.17c-3.2.7-3.87-1.36-3.87-1.36-.52-1.32-1.27-1.67-1.27-1.67-1.04-.71.08-.69.08-.69 1.15.08 1.75 1.18 1.75 1.18 1.02 1.74 2.67 1.24 3.32.95.1-.74.4-1.24.72-1.53-2.55-.29-5.24-1.27-5.24-5.67 0-1.25.45-2.27 1.18-3.07-.12-.29-.51-1.46.11-3.05 0 0 .96-.31 3.15 1.17a10.9 10.9 0 0 1 5.74 0c2.19-1.48 3.15-1.17 3.15-1.17.62 1.59.23 2.76.11 3.05.73.8 1.18 1.82 1.18 3.07 0 4.41-2.69 5.38-5.25 5.66.41.35.77 1.03.77 2.08v3.08c0 .31.21.66.8.55A11.5 11.5 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5z"/></svg></a></li>
 			</ul>
-			<span class="copyright">© 2026 HSUN-WEI (WES) TU · ?�勳�?/span>
+			<span class="copyright">© 2026 HSUN-WEI (WES) TU · 杜勳威</span>
 		</div>
 	</footer>
 
